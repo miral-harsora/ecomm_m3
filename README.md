@@ -16,7 +16,7 @@ Tech Stack
 •	Testing: Vitest
 Installation
 1.	Clone the Repository:
-2.	git clone https://github.com/yourusername/shopsphere.git
+2.	git clone (https://github.com/miralsh/ecomm_m3.git)
 3.	cd shopsphere
 4.	Install Dependencies:
 5.	npm install
@@ -38,6 +38,30 @@ Folder Structure
   |--reducer       # redux reducer 
   |-- App.js          # Root component
   |-- index.js        # Entry point
+
+Screens:
+Home
+![Screenshot 2025-03-16 230159](https://github.com/user-attachments/assets/abe05eea-178e-4a69-8bbc-d906e623c7f0)
+
+![Screenshot 2025-03-16 230357](https://github.com/user-attachments/assets/09b7bea7-a845-4a3a-9588-b76805dd80fb)
+
+Category
+![Screenshot 2025-03-16 230428](https://github.com/user-attachments/assets/6c0eac7d-bd38-4247-ac67-6ef22ac139f2)
+
+Product Detail Page
+![Screenshot 2025-03-16 230520](https://github.com/user-attachments/assets/b6eb577c-024c-4cd0-95e1-054988f42514)
+
+Wishlist
+![Screenshot 2025-03-16 230542](https://github.com/user-attachments/assets/8b07dcd7-0c6d-40e7-958a-a9b165dfddfe)
+
+Cart
+![Screenshot 2025-03-16 230542](https://github.com/user-attachments/assets/e3055b82-2867-42c0-9a02-8b36c89a817d)
+
+
+
+
+
+
 Contact
 For questions, feedback, or collaboration, feel free to reach out to Miral Harsora at miralharsora18@gmail.com
 
