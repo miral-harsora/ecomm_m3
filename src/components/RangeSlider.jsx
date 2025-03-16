@@ -13,7 +13,7 @@ export default function RangeSlider({ value, onChange }) {
       width: {
           xs: '90%',    // Small screens: 90% width
           sm: '70%',    // Medium screens: 70% width
-          md: '100%',      // Large screens: Fixed width (400px)
+          md: '100%',      // Large screens: 100% width
       },
       margin: '20px auto',
       padding: '10px',
@@ -40,8 +40,8 @@ export default function RangeSlider({ value, onChange }) {
         getAriaValueText={(value) => `${value}`}
         aria-labelledby="price-range-slider"
       />
-      <Typography id="price-range-slider" sx={{ fontWeight: "bold", textAlign: "center", mt: 1 ,color:"black" }}>
-        Selected Range: ₹{value[0]} - ₹{value[1]}
+      <Typography id="price-range-slider" sx={{ fontWeight: "bold", textAlign: "center", mt: 1 ,color:"black",fontSize:"14px" }}>
+        Selected Range: ${value[0]} - ${value[1]}
       </Typography>
     </Box>
   );

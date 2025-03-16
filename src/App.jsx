@@ -9,10 +9,12 @@ import Login from './pages/Login'
 import Footer from './components/Footer'
 import SelectedProducts from './pages/SelectedProducts'
 import ProductDetail from './pages/ProductDetail'
-import Carousel from './pages/Carousel'
 import AboutUs from './pages/AboutUs'
 import Contact from './pages/Contact'
 import FAQ from './pages/FAQ'
+import { useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { getProducts } from './action'
 
 function AppWrapper() {
   return (
@@ -22,29 +24,32 @@ function AppWrapper() {
   )
 }
 function App() {
+  const [navbarHeight, setNavbarHeight] = useState(0);
+  const dispatch= useDispatch();
+  useEffect(() => {
+       dispatch(getProducts());
+   }, [dispatch]);
   const location = useLocation()
   const hideFooterRoutes = ['/login', '/cart']
   const hideNavbarRoutes = ['/cart']
   const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
   const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
   return (
-
+    console.log("navbarHeight",navbarHeight),
     <>
-      {!shouldHideNavbar && <Navbar />}
+      {!shouldHideNavbar && <Navbar setNavbarHeight={setNavbarHeight}/>}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/faqs" element={<FAQ />} />
-        <Route path="/category/:name" element={<SelectedProducts />} />
-        <Route path="/:name" element={<SelectedProducts />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
-        {/* <Route path="/:name" element={<SearchProducts/>}/> */}
-        <Route path="/Carousel" element={<Carousel />} />
+        <Route path="/" element={<Home navbarHeight={navbarHeight}/>} />
+        <Route path="/home" element={<Home navbarHeight={navbarHeight}/>} />
+        <Route path="/cart" element={<Cart  />} />
+        <Route path="/wishlist" element={<Wishlist   navbarHeight={navbarHeight}/>}/>
+        <Route path="/login" element={<Login  navbarHeight={navbarHeight}/>} />
+        <Route path="/about" element={<AboutUs  navbarHeight={navbarHeight}/>} />
+        <Route path="/contact" element={<Contact  navbarHeight={navbarHeight}/>} />
+        <Route path="/faqs" element={<FAQ  navbarHeight={navbarHeight}/>} />
+        <Route path="/category/:name" element={<SelectedProducts navbarHeight={navbarHeight}/>} />
+        <Route path="/:name" element={<SelectedProducts navbarHeight={navbarHeight}/>} />
+        <Route path="/products/:id" element={<ProductDetail  navbarHeight={navbarHeight}/>} />
       </Routes>
       {!shouldHideFooter && <Footer >
 

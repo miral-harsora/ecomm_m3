@@ -43,7 +43,7 @@ const DiscountFilter = ({ value, onChange }) => {
 >
 
 </div>
-            <span className="text-gray-700 peer-checked:text-[#F7569B] font-medium">{discount.label}</span>
+            <span className="text-gray-700 peer-checked:text-[#F7569B] font-medium text-sm">{discount.label}</span>
           </label>
         ))}
       </div>

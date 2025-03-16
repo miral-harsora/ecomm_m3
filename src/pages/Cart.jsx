@@ -150,7 +150,7 @@ const Cart = () => {
             {cartItems.length > 0 ?
 
 
-                <div className='flex flex-col sm:flex-row md:flex-row lg:flex-row   min-sm:mx-64'>
+                <div className='flex flex-col sm:flex-row md:flex-row lg:flex-row   min-lg:mx-64'>
                     <div className='min-sm:w-[75%] mx-4 mt-4'>
                         <div className='flex flex-col'>
                             <div className=' flex justify-between items-center bg-[#F7569B80] py-4 px-2'>
@@ -170,15 +170,15 @@ const Cart = () => {
                                             <div className='flex text-gray-500 items-center'>
                                                 <div className='w-[40%] flex  items-center'>
                                                     <img src={item.thumbnail} width={50} className='bg-gray-300' />
-                                                    <p className='mx-2'>{item.title}</p>
+                                                    <p className='mx-2' data-testid="title">{item.title}</p>
                                                 </div>
-                                                <p className='w-[20%]'>{item.price * quantity[item.id]}</p>
+                                                <p className='w-[20%]'>${item.price * quantity[item.id]}</p>
                                                 <div className='w-[20%] '> <div className="w-3/4 border-[1px] border-gray-300 flex h-[30px] justify-center ">
                                                     <button className="ms-3 me-3 text-gray-500 cursor-pointer hover:font-bold" onClick={() => minus(item.id)}>-</button>
                                                     <p className="mx-2">{quantity[item.id] || 1}</p>
                                                     <button className="ms-3 me-3 text-gray-500 cursor-pointer  hover:font-bold" onClick={() => Plus(item.id)}>+</button>
                                                 </div></div>
-                                                <p className='w-[20%]'>{item.price * quantity[item.id]}</p>
+                                                <p className='w-[20%]'>${item.price * quantity[item.id]}</p>
                                                 <IoMdCloseCircle  className="cursor-pointer" onClick={() => removefromCart(item)} />
                                             </div>
 
@@ -191,15 +191,15 @@ const Cart = () => {
                                                    
                                                 </div>
                                                 <div className='w-[50%] flex flex-col mt-2'>
-                                                <p className='mx-2'>{item.title}</p>
+                                                <p className='mx-2' data-testid="title">{item.title}</p>
                                                
-                                                <p className='mx-2'>{item.price * quantity[item.id]}</p>
+                                                <p className='mx-2'>${item.price * quantity[item.id]}</p>
                                                 <div className=' mx-2'> <div className="w-3/4 border-[1px] border-gray-300 flex h-[30px] justify-center ">
                                                     <button className="ms-3 me-3 text-gray-500 cursor-pointer hover:font-bold" onClick={() => minus(item.id)}>-</button>
                                                     <p className="mx-2">{quantity[item.id] || 1}</p>
                                                     <button className="ms-3 me-3 text-gray-500 cursor-pointer hover:font-bold" onClick={() => Plus(item.id)}>+</button>
                                                 </div></div>
-                                                <p className='mx-2'>{item.price * quantity[item.id]}</p>
+                                                <p className='mx-2'>${item.price * quantity[item.id]}</p>
                                                 </div>
                                                 <div className=' mt-2'>
                                                 <IoMdCloseCircle className="cursor-pointer" onClick={() => removefromCart(item)} />
@@ -232,7 +232,7 @@ const Cart = () => {
                             <hr className='border-gray-200 my-2 ' />
                             <div className='flex justify-between items-center'>
                                 <p>Subtotal:</p>
-                                <p className='text-red-500'>₹{getTotalPrice()}</p>
+                                <p className='text-red-500'>${getTotalPrice()}</p>
                             </div>
                             <hr className='border-gray-200 my-2 ' />
                             <p>Shipping:</p>
@@ -336,7 +336,7 @@ const Cart = () => {
                             <hr className='border-gray-200 my-2 ' />
                             <div className='flex justify-between items-center text-red-500'>
                                 <p>Total:</p>
-                                <p className='text-red-500'>₹{final()}</p>
+                                <p className='text-red-500'>${final()}</p>
                             </div>
                             <button className='bg-[#F7569B] p-2 text-white font-bold text-sm mt-2 rounded'>PROCEED TO CHECKOUT</button>
                         </div>

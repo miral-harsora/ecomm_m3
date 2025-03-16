@@ -1,7 +1,11 @@
-import { afterEach } from "vitest";
-import { cleanup } from "@testing-library/react";
-import "@testing-library/jest-dom/vitest";
+//import { server } from './Server'; // Path may vary
+import { cleanup } from '@testing-library/react';
+import { beforeAll, afterEach, afterAll } from 'vitest';
 
-afterEach(()=>{
+// beforeAll(() => server.listen());
+// afterEach(() => server.resetHandlers());
+// afterAll(() => server.close());
+
+afterEach(() => {
     cleanup();
-});
+})

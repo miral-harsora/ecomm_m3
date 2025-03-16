@@ -48,7 +48,9 @@ const Contact = () => {
                   <label className="block text-gray-700 font-medium">Region *</label>
                   <select className="w-full border border-gray-300 p-2 rounded mt-1">
                     <option value="">Select Region</option>
+                    <option value="CA">Canada</option>
                     <option value="US">United States</option>
+                    <option value="IN">India</option>
                     <option value="EU">Europe</option>
                     <option value="AS">Asia</option>
                   </select>

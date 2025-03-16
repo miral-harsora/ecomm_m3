@@ -9,15 +9,15 @@ const Filter = ({ setPriceRange, setSelectedDiscount }) => {
     const handleClearFilters = () => {
         setLocalPrice([10, 14000]);
         setLocalDiscount("");
-        setPriceRange([10, 14000]); // Reset in parent
-        setSelectedDiscount(""); // Reset in parent
+        setPriceRange([10, 14000]); 
+        setSelectedDiscount(""); 
     };
 
     return (
-        <div className="p-4 border-[1px] border-gray-500 rounded shadow-md">
+        <div className="p-4 border-r-gray-300  ">
             <div className="flex justify-between items-center">
-                <p className="font-bold mx-2">FILTERS</p>
-                <p className="text-[#F7569B] mx-2 cursor-pointer text-xs lg:text-base" onClick={handleClearFilters}>
+                <p className="font-bold mx-2 text-xs">FILTERS</p>
+                <p className="text-[#F7569B] mx-2 cursor-pointer text-xs " onClick={handleClearFilters}>
                     CLEAR ALL
                 </p>
             </div>
@@ -25,20 +25,20 @@ const Filter = ({ setPriceRange, setSelectedDiscount }) => {
             
             {/* Price Filter */}
             <div className="flex flex-col">
-                <p className="font-bold mx-2">PRICE</p>
+                <p className="font-bold mx-2 text-xs">PRICE</p>
                 <RangeSlider value={localPrice} onChange={(value) => {
                     setLocalPrice(value);
-                    setPriceRange(value); // Update parent
+                    setPriceRange(value);
                 }}/>
                 <hr className="my-2 w-full border-gray-300" />
             </div>
 
             {/* Discount Filter */}
             <div className="flex flex-col">
-                <p className="font-bold mx-2">DISCOUNT</p>
+                <p className="font-bold mx-2 text-xs">DISCOUNT</p>
                 <DiscountFilter value={localDiscount} onChange={(value) => {
                     setLocalDiscount(value);
-                    setSelectedDiscount(value); // Update parent
+                    setSelectedDiscount(value);
                 }} />
                 <hr className="my-2 w-full border-gray-300" />
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState ,useLayoutEffect } from 'react';
 import ShopSphere from '../assets/ShopSphere_logo.png'
 import ShopSphere_initial from '../assets/ShopSphere_initial.png'
 import { FaSearch, FaChevronDown, FaChevronRight, FaChevronLeft } from 'react-icons/fa';
@@ -9,7 +9,7 @@ import { getCategories, getCategorizedProducts, searchProd } from '../action';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import cartImg from "../assets/cart.png"
 import { useRef } from 'react';
-const Navbar = () => {
+const Navbar = ({ setNavbarHeight }) => {
   const location = useLocation();
   const windowWidth = String(Math.floor(useRef(window.innerWidth).current) / 2) + "px";
   console.log(windowWidth)
@@ -61,7 +61,21 @@ const Navbar = () => {
   useEffect(() => {
     setwlNum(wishlist.length)
   }, [wishlist]);
+  const desktopNavbarRef = useRef(null);
+const mobileNavbarRef = useRef(null);
+useEffect(() => {
+  const updateHeight = () => {
+      const desktopHeight = desktopNavbarRef.current?.clientHeight || 0;
+      const mobileHeight = mobileNavbarRef.current?.clientHeight || 0;
+      const calculatedHeight = Math.max(desktopHeight, mobileHeight);
+      setNavbarHeight(calculatedHeight);
+  };
 
+  window.addEventListener('resize', updateHeight);
+  updateHeight(); // Initial height calculation
+
+  return () => window.removeEventListener('resize', updateHeight);
+}, [categories, setNavbarHeight]);
   const CategoryList = ({ keyword, val }) => {
     return (
       <ul className="space-y-2">
@@ -104,7 +118,7 @@ const Navbar = () => {
                 <li
                   key={cat}
 
-                  className=" py-2 hover:bg-[#F7569B] hover:text-white rounded transition-all duration-300 cursor-pointer"
+                  className=" py-2  px-2 w-full hover:bg-[#F7569B] hover:text-white rounded transition-all duration-300 cursor-pointer"
                   onClick={() => onCategory(cat, val)}
 
                 >
@@ -118,7 +132,8 @@ const Navbar = () => {
   }
   return (
     <>
-      <div className='hidden  min-lg:flex justify-between items-center shadow'>
+      {/* Desktop View */}
+      <div  ref={desktopNavbarRef} className='hidden  min-xl:flex justify-between items-center shadow fixed top-0 absolute z-5 w-full bg-white h-auto' data-testid="navbar">
         <div className='flex justify-start'>
           <Link to="/"> <img src={ShopSphere} width={120} /></Link>
           <div
@@ -256,13 +271,14 @@ const Navbar = () => {
           </div>
         </div>
         <div className='flex justify-end items-center'>
-          <Link to="/login"><p className='font-bold mx-4'>Login / SignUp</p></Link>
-          <Link to="/cart"><div className={`border-[1px] border-red-500 bg-red-500 text-white  rounded-full absolute z-2 p-1 mx-8 ${cartNum > 0 ? 'visible' : 'hidden'}`}>{cartNum}</div><MdOutlineShoppingCart className='mx-4' size={22}  ></MdOutlineShoppingCart></Link>
-          <Link to="/wishlist"><div className={`border-[1px] border-red-500 bg-red-500 text-white  rounded-full absolute z-2 p-1 mx-8 ${wlNum > 0 ? 'visible' : 'hidden'}`}>{wlNum}</div><IoMdHeartEmpty className='mx-4' size={22} /></Link>
+          <Link to="/login"><p className='font-bold mx-4' data-testid="login">Login / SignUp</p></Link>
+          <Link to="/cart"><div data-testid="cart" className={`w-4 h-4 bg-red-500 rounded-full border-4 border-red-500 absolute z-2 my-2 mx-8  flex items-center justify-center ${cartNum > 0 ? 'visible' : 'hidden'}`}><p className='text-xs text-white font-bold'>{cartNum}</p></div><MdOutlineShoppingCart className='mx-4' size={22}  ></MdOutlineShoppingCart></Link>
+          <Link to="/wishlist"><div data-testid="wishlist_link" className={`w-4 h-4 bg-red-500 rounded-full border-4 border-red-500 absolute z-2 my-2 mx-8  flex items-center justify-center ${wlNum > 0 ? 'visible' : 'hidden'}`}><p className='text-xs text-white font-bold'>{wlNum}</p></div><IoMdHeartEmpty className='mx-4' size={22} /></Link>
         </div>
       </div>
-      <div className='flex flex-col py-2  min-lg:hidden '>
-        <div className={`${isMenuOpen ? 'visible' : 'hidden'} fixed inset-0 flex bg-black bg-opacity-20 z-50`} onClick={toggleMenu}>
+      {/* Mobile View */}
+      <div ref={mobileNavbarRef} className='flex flex-col py-2  min-xl:hidden  w-full  shadow fixed top-0 absolute z-5 w-full bg-white h-auto' data-testid="navbar">
+        <div className={`${isMenuOpen ? 'visible' : 'hidden'} fixed inset-0 flex bg-transparent absolute z-50`} onClick={toggleMenu}>
           <div className="bg-white rounded-lg shadow-lg w-[45%]" onClick={(e) => e.stopPropagation()} >
 
             <div className='flex flex-col'>
@@ -326,8 +342,8 @@ const Navbar = () => {
             <Link to="/"><img src={ShopSphere_initial} width={40} className='p-2' /></Link>
           </div>
           <div className='flex justify-end items-center'>
-            <Link to="/cart"><div className={`border-[1px] border-red-500 bg-red-500 text-white  rounded-full absolute z-2 p-1 mx-8 ${cartNum > 0 ? 'visible' : 'hidden'}`}>{cartNum}</div><MdOutlineShoppingCart className='mx-4' size={24}  ></MdOutlineShoppingCart></Link>
-            <Link to="/wishlist"><div className={`border-[1px] border-red-500 bg-red-500 text-white  rounded-full absolute z-2 p-1 mx-8 ${wlNum > 0 ? 'visible' : 'hidden'}`}>{wlNum}</div><IoMdHeartEmpty className='mx-4' size={24} /></Link>
+            <Link to="/cart"><div className={`w-4 h-4 bg-red-500 rounded-full border-4 border-red-500 absolute z-2 my-2 mx-8  flex items-center justify-center  ${cartNum > 0 ? 'visible' : 'hidden'}`}><p className="text-xs text-white font-bold">{cartNum}</p></div><MdOutlineShoppingCart className="mx-4" size={24}  ></MdOutlineShoppingCart></Link>
+            <Link to="/wishlist"><div className={`w-4 h-4 bg-red-500 rounded-full border-4 border-red-500 absolute z-2 my-2 mx-8  flex items-center justify-center  ${wlNum > 0 ? 'visible' : 'hidden'}`}><p className="text-xs text-white font-bold">{wlNum}</p></div><IoMdHeartEmpty className='mx-4' size={24} /></Link>
           </div>
         </div>
         <div className='mx-auto flex justify-center items-center w-full'>
@@ -336,7 +352,7 @@ const Navbar = () => {
             <div className="items-center relative w-full">
               <div className="flex-grow">
                 <input
-                  className={`flex items-center  max-w-[500px] bg-white rounded-xl  shadow pl-10 pr-4 py-2 text-black`}
+                  className={`flex items-center  max-w-[400px] bg-white rounded-xl  shadow pl-10 pr-4 py-2 text-black`}
                   style={{ width: windowWidth }}
                   placeholder="Search Product"
                   onInput={search}
@@ -358,26 +374,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-{/* <div className="relative group flex items-center mx-4">
-
-<button className="bg-white text-black  px-4 py-2   hover:bg-[#F7569B]">
-    Category
-</button>
-<ul className="absolute left-0 top-full mt-0 hidden group-hover:block bg-white text-black   w-48 z-10">
-<button className="bg-white text-black  px-4 py-2   hover:bg-[#F7569B]">
-         Men
-     </button>
-    {cat.map((category) => {
-        return(
-            <>
-        
-     <ul className="absolute left-0 top-full mt-0 hidden group-hover:block bg-white text-black   w-48 z-10">
-        
-        {category.name.includes("Men")?(
-        
-            <li className="px-4 py-2 hover:bg-[#F7569B] cursor-pointer">{category.name}</li>
-        ):null}
-        </ul>
-</>)})}
-</ul>
-</div> */}

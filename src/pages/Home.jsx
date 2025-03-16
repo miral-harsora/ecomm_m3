@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from '../components/Banner';
 import Products from '../components/Products';
 import { MdOutlineLocalShipping, MdOutlineContactSupport } from "react-icons/md";
 import { FaRegCircleCheck } from 'react-icons/fa6';
 import { RiSecurePaymentLine } from 'react-icons/ri'
-const Home = () => {
+const Home = ({navbarHeight}) => {
     return (
         <>
-        <Banner />
+        <Banner navbarHeight={navbarHeight }/>
         <div className='flex justify-center'>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4 my-4 text-center '>
             

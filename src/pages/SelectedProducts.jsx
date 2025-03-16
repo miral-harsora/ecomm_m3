@@ -9,7 +9,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Productfilter from '../components/Productfilter';
 import { FaChevronDown } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
-const SelectedProducts = () => {
+import { motion } from 'framer-motion';
+import LazyImage from '../components/LazyImage';
+const SelectedProducts = ({navbarHeight}) => {
     const products = useSelector(state => state.filtered);
     const [priceRange, setPriceRange] = useState([10, 14000]);
     const [selectedDiscount, setSelectedDiscount] = useState("");
@@ -134,9 +136,21 @@ const SelectedProducts = () => {
         });
         setFilteredProducts(filtered);
     }, [priceRange, selectedDiscount]);
-
+    const productCardVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" }
+        }
+    };
+    
+    const hoverEffect = {
+        scale: 1.05,
+        boxShadow: "0 8px 15px rgba(0, 0, 0, 0.15)"
+    };
     return (
-        <div className="mx-auto">
+        <div className="mx-auto" style={{paddingTop: `${navbarHeight}px`}}>
             <div className='flex flex-col md:flex-row'>
 
                 {/* Filter Toggle Button for Small Devices */}
@@ -148,7 +162,8 @@ const SelectedProducts = () => {
                 </button>
 
                 {/* Filter Section */}
-                <div className={`w-full md:w-1/4 p-4 ${isFilterVisible ? 'block' : 'hidden'} md:block`}>
+                <div className={`w-full md:w-[20%] 
+                    p-4 ${isFilterVisible ? 'block' : 'hidden'} md:block`}>
                     <Productfilter
                         setPriceRange={setPriceRange}
                         setSelectedDiscount={setSelectedDiscount}
@@ -156,7 +171,7 @@ const SelectedProducts = () => {
                 </div>
 
                 {/* Products Section */}
-                <div className="w-full md:w-3/4 p-4">
+                <div className="w-full md:w-[80%] p-2">
                     <div className="container mx-auto ">
                         <div className='flex justify-end mb-2'>
                             <div className="relative group flex items-center mx-4 " onMouseEnter={toggleDropdown}  // Keep open when hovering
@@ -164,7 +179,7 @@ const SelectedProducts = () => {
                                 {/* Dropdown Button */}
                                 <button
 
-                                    className="bg-white text-black  px-4 py-2  border-[1px] border-black rounded"
+                                    className="bg-white text-black  px-4 py-2 border-[1px] border-gray-300 rounded"
                                 >
                                     <div className='flex items-center justify-between'> Sort by {selected} <FaChevronDown
                                         className={`mx-2 transform transition-transform ${isDropdownOpen ? "rotate-180" : "rotate-0"}`}
@@ -174,11 +189,11 @@ const SelectedProducts = () => {
 
                                 {/* Dropdown Menu */}
                                 {isDropdownOpen && (
-                                    <div className={`absolute left-0 top-[100%] w-full bg-white text-black rounded border z-10 px-2`}>
+                                    <div className={`absolute left-0 top-[100%] w-full bg-white text-black rounded border-[1px] border-gray-300 z-10 px-2`}>
 
                                         <div  >
 
-                                            <ul >
+                                            <ul className='mx-2'>
                                                 <li className="hover:font-bold cursor-pointer" onClick={() => sortBy("Price: High to Low")}>Price: High to Low</li>
                                                 <li className="hover:font-bold cursor-pointer" onClick={() => sortBy("Price: Low to High")}>Price: Low to High</li>
                                                 <li className="hover:font-bold cursor-pointer" onClick={() => sortBy("Customer Rating")}>Customer Rating</li>
@@ -190,18 +205,24 @@ const SelectedProducts = () => {
                                 )}
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {filteredProducts.length > 0 ? (
                                 filteredProducts.slice(currIndex, currIndex + 16).map((product) => (
                                     <>
                                         <Link to={`/products/${product.id}`}>
-                                            <div key={product.id} className="relative flex flex-col justify-center shadow rounded-xl mb-4 border-1 border-gray-300 font-semibold mx-4 min-h-[400px]"
+                                            <motion.div key={product.id}
+                                             variants={productCardVariants}
+                                             initial="hidden"
+                                             whileInView="visible"
+                                             viewport={{ once: true, amount: 0.2 }}  // Animation triggers only when visible
+                                             whileHover={hoverEffect}                // Hover effect
+                                              className="relative flex flex-col justify-center shadow  mb-4 border-1 border-gray-300 font-semibold mx-4 min-h-[400px]"
                                                 onClick={() => onReadMore(product.id)} onMouseOver={() => handleHoverMain(product.id)} onMouseLeave={handleLeaveMain} >
 
 
-                                                <div className="flex flex-col h-[85%] mt-1">
-                                                    <div className={`absolute top-0 z-2 bg-[rgb(179, 16, 16)] rounded-xl bg-white w-full h-full overflow-hidden 
-    ${onhover && currProd == product.id ? 'visible h-auto p-4' : 'hidden'}`}
+                                                <div className="flex flex-col h-[70%] ">
+                                                    <div className={`absolute top-0 z-2 bg-[rgb(179, 16, 16)]  bg-white w-full h-full overflow-hidden 
+                                                    ${onhover && currProd == product.id ? 'visible h-auto ' : 'hidden'}`}
                                                         onMouseOver={() => handleHover(product.id, product.images.length)}
                                                         onMouseLeave={handleLeave}
                                                     >
@@ -217,14 +238,13 @@ const SelectedProducts = () => {
                                                         >
                                                             {product.images.map((img, imgIndex) => (
                                                                 <div key={imgIndex} className='flex justify-center items-center overflow-hidden'>
-                                                                    <img src={img} alt="Slide" className="object-cover w-full h-auto aspect-[3/4] rounded"/>
+                                                                    <img src={img} alt="Slide" className="object-cover w-full h-auto aspect-[3/4]  bg-gray-300" />
                                                                 </div>
                                                             ))}
                                                         </Carousel>
-
-                                                        <div className='h-[25%] w-full  flex flex-col items-center justify-end  text-center '>
+                                                        <div className=' w-full  flex flex-col items-center justify-end  text-center my-8'>
                                                             <button
-                                                                className='flex items-center justify-center border-[1px] rounded w-full max-w-[300px] mb-2'
+                                                                className='flex items-center justify-center border-[1px] rounded w-[75%] mb-2 '
                                                                 onClick={(e) => addToWishList(e, product)}
                                                             >
                                                                 {checkWL(product.id) ? (
@@ -240,9 +260,9 @@ const SelectedProducts = () => {
 
                                                             <div>
                                                                 <p className="font-bold text-sm text-ellipsis line-clamp-1">
-                                                                    {product.price}
+                                                                    ${product.price}
                                                                     <span className='font-medium line-through mx-2'>
-                                                                        {((product.price * 100) / (100 - product.discountPercentage)).toFixed(2)}
+                                                                        ${((product.price * 100) / (100 - product.discountPercentage)).toFixed(2)}
                                                                     </span>
                                                                     <span className='text-pink-300 mx-2'>
                                                                         ({product.discountPercentage}% OFF)
@@ -278,18 +298,19 @@ const SelectedProducts = () => {
 
 
                                                 </div>
-                                                <div className="h-[85%] items-center p-4">
-                                                    <img
+                                                <div className="h-[70%] items-center ">
+                                                    <LazyImage
                                                         src={imageErrors[product.id] ? 'https://images.pexels.com/photos/159868/lost-cat-tree-sign-fun-159868.jpeg' : product.thumbnail}
                                                         alt={product.title}
-                                                        className="object-cover w-full h-auto aspect-[3/4] rounded"
+                                                        className="object-cover w-full h-auto aspect-[3/4]  bg-gray-300"
                                                         onError={() => handleImageError(product.id)}
+                                                        fallbackSrc="https://placehold.co/400x600?text=Loading..."
                                                     />
                                                 </div>
-                                                <div className="h-[25%] text-center mb-2 items-center">
+                                                <div className=" text-center mb-2 items-center my-4">
                                                     <p className="text-gray-400 text-sm">{product.category}</p>
                                                     <p className="text-ellipsis line-clamp-1 mx-1">{product.title}</p>
-                                                    <p className="text-sm  font-bold">{product.price}<span className='font-medium line-through mx-2'>{((product.price * 100) / (100 - product.discountPercentage)).toFixed(2)}</span><span className='text-pink-300 mx-2'>({product.discountPercentage}% OFF)</span></p>
+                                                    <p className="text-sm  font-bold">${product.price}<span className='font-medium line-through mx-2'>${((product.price * 100) / (100 - product.discountPercentage)).toFixed(2)}</span><span className='text-pink-300 mx-2'>({product.discountPercentage}% OFF)</span></p>
                                                     <div className='flex justify-center mb-4'>
                                                         {(product.rating > 4 && product.rating < 5) ? (
                                                             <div className='flex justify-center mb-4'>
@@ -338,19 +359,19 @@ const SelectedProducts = () => {
                                                         {/* <p>({product.reviews.length} reviews)</p> */}
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </motion.div>
                                         </Link>
                                     </>
                                 ))) : <p>No Products Found!</p>}
                         </div>
                     </div>
                     <div className="flex justify-center items-center my-4">
-                        <button className="py-2 px-4 border-[1px] border-gray-500 rounded mx-4" onClick={prev}>
-                            <div className="flex items-center px-2"><MdKeyboardArrowLeft />  <p className="px-2 hidden sm:flex md:flex lg:flex">Previous</p></div>
+                        <button className="py-2 px-4 border-[1px] border-gray-300 hover:border-black rounded mx-4" onClick={prev}>
+                            <div className="flex items-center px-2"><MdKeyboardArrowLeft /> <p className="px-2 hidden sm:flex md:flex lg:flex">Previous</p></div>
                         </button>
-                        <p className="mx-2"> Page {currPage + 1} of {Math.ceil(filteredProducts.length / 16) || 1}</p>
-                        <button className="py-2 px-4 border-[1px] border-gray-500 rounded mx-4" onClick={next}>
-                            <div className="flex items-center px-2"> <p className="px-2 hidden sm:flex md:flex lg:flex">Next</p> <MdKeyboardArrowRight /></div>
+                        <p className="mx-2">Page {currPage + 1} of {filteredProducts ? (Math.floor(filteredProducts.length / 16)) < 1 ? 1 : Math.floor(filteredProducts.length / 16) : 1}</p>
+                        <button className="py-2 px-4 border-[1px] border-gray-300 hover:border-black rounded mx-4" onClick={next}>
+                            <div className="flex items-center px-2"><p className="px-2 hidden sm:flex md:flex lg:flex">Next</p> <MdKeyboardArrowRight /></div>
                         </button>
                     </div>
                 </div>
