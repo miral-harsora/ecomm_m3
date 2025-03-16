@@ -57,6 +57,8 @@ Wishlist
 Cart
 ![Screenshot 2025-03-16 230542](https://github.com/user-attachments/assets/e3055b82-2867-42c0-9a02-8b36c89a817d)
 
+Login/Sign up
+![Screenshot 2025-03-16 231229](https://github.com/user-attachments/assets/4aca5239-940b-4b74-a195-9d85f13f38af)
 
 
 
