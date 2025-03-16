@@ -14,16 +14,16 @@ const Cart = () => {
         setSelectedValue,
     ] = useState("option1");
     const [finalTotal, setFinalTotal] = useState(0)
-    const handleRadioChange = (
+    const handleRadioChange = (event,
         value
     ) => {
-        setSelectedValue(value);
-        console.log(selectedValue)
-        if (selectedValue == "option2") {
-            setFinalTotal(Number(finalTotal) + 10)
-        } else if (selectedValue == "option3") {
-            setFinalTotal(Number(finalTotal) + 20)
-        } else if (selectedValue == "option1") {
+        console.log("value "+event.target.value)
+        setSelectedValue(event.target.value);
+        if (event.target.value == "option2") {
+            setFinalTotal(Number(getTotalPrice()) + 10)
+        } else if (event.target.value == "option3") {
+            setFinalTotal(Number(getTotalPrice()) + 20)
+        } else if (event.target.value == "option1") {
             setFinalTotal(getTotalPrice())
         }
     };
@@ -121,7 +121,7 @@ const Cart = () => {
         if (selectedValue == "option1") {
             return getTotalPrice()
         }
-        else { return finalTotal }
+        else { return finalTotal.toFixed(2) }
     }
     return (
         <>
@@ -257,8 +257,8 @@ const Cart = () => {
                                                 selectedValue ===
                                                 "option1"
                                             }
-                                            onChange={() =>
-                                                handleRadioChange(
+                                            onChange={(e) =>
+                                                handleRadioChange(e,
                                                     "option1"
                                                 )
                                             }
@@ -286,8 +286,8 @@ const Cart = () => {
                                                 selectedValue ===
                                                 "option2"
                                             }
-                                            onChange={() =>
-                                                handleRadioChange(
+                                            onChange={(e) =>
+                                                handleRadioChange(e,
                                                     "option2"
                                                 )
                                             }
@@ -315,8 +315,8 @@ const Cart = () => {
                                                 selectedValue ===
                                                 "option3"
                                             }
-                                            onChange={() =>
-                                                handleRadioChange(
+                                            onChange={(e) =>
+                                                handleRadioChange(e,
                                                     "option3"
                                                 )
                                             }
