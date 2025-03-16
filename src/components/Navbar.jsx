@@ -6,16 +6,18 @@ import { MdMenu, MdOutlineShoppingCart } from "react-icons/md";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategories, getCategorizedProducts, searchProd } from '../action';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import cartImg from "../assets/cart.png"
 import { useRef } from 'react';
 const Navbar = () => {
+  const location = useLocation();
   const windowWidth = String(Math.floor(useRef(window.innerWidth).current) / 2) + "px";
   console.log(windowWidth)
-  const [isDropdownOpen, setIsDropdownOpen] = useState({ 1: false, 2: false, 3: false, 4: false, 5: false, 6: false });
+ 
   const cart = useSelector(state => state.cart)
   const wishlist = useSelector(state => state.wishlist)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isDropdownOpen, setIsDropdownOpen] = useState({ 1: false, 2: false, 3: false, 4: false, 5: false, 6: false });
   const toggleDropdown = (num) => setIsDropdownOpen({ ...isDropdownOpen, [num]: false });
   const toggleDropdownOpen = (num) => setIsDropdownOpen({ ...isDropdownOpen, [num]: true });
   const toggleDropdownSmall = (num) => setIsDropdownOpen({ ...isDropdownOpen, [num]: !isDropdownOpen[num] });
@@ -27,6 +29,11 @@ const Navbar = () => {
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
+  useEffect(() => {
+    setIsDropdownOpen({
+      1: false, 2: false, 3: false, 4: false, 5: false, 6: false
+    });
+  }, [location]);
   const categories = useSelector(state => state.categories);
   const [cat, setCat] = useState([]);
   const navigate = useNavigate();

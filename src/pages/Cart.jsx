@@ -130,7 +130,7 @@ const Cart = () => {
                     <Link to="/">  <img src={ShopSphere} width={120} /></Link>
                 </div>
                 <div className='flex justify-center items-center text-gray-500 text-xs sm:text-sm md:text-base lg:text-base '>
-                    <p className='mx-2'>CART</p> / <p className='mx-2'>ADDRESS</p> / <p className='mx-2'>PAYMENT</p>
+                    <p className='mx-2 font-bold'>CART</p> / <p className='mx-2'>ADDRESS</p> / <p className='mx-2'>PAYMENT</p>
                 </div>
                 <div className='flex justify-end items-center mx-4'>
                     <GrSecure style={{ color: "green" }} size={24} /><p className='text-xs sm:text-sm md:text-base lg:text-base'>100% SECURE</p>
@@ -174,12 +174,12 @@ const Cart = () => {
                                                 </div>
                                                 <p className='w-[20%]'>{item.price * quantity[item.id]}</p>
                                                 <div className='w-[20%] '> <div className="w-3/4 border-[1px] border-gray-300 flex h-[30px] justify-center ">
-                                                    <button className="ms-3 me-3 text-gray-500" onClick={() => minus(item.id)}>-</button>
+                                                    <button className="ms-3 me-3 text-gray-500 cursor-pointer hover:font-bold" onClick={() => minus(item.id)}>-</button>
                                                     <p className="mx-2">{quantity[item.id] || 1}</p>
-                                                    <button className="ms-3 me-3 text-gray-500" onClick={() => Plus(item.id)}>+</button>
+                                                    <button className="ms-3 me-3 text-gray-500 cursor-pointer  hover:font-bold" onClick={() => Plus(item.id)}>+</button>
                                                 </div></div>
                                                 <p className='w-[20%]'>{item.price * quantity[item.id]}</p>
-                                                <IoMdCloseCircle onClick={() => removefromCart(item)} />
+                                                <IoMdCloseCircle  className="cursor-pointer" onClick={() => removefromCart(item)} />
                                             </div>
 
                                             <hr className='my-2 border-gray-300' />
@@ -195,14 +195,14 @@ const Cart = () => {
                                                
                                                 <p className='mx-2'>{item.price * quantity[item.id]}</p>
                                                 <div className=' mx-2'> <div className="w-3/4 border-[1px] border-gray-300 flex h-[30px] justify-center ">
-                                                    <button className="ms-3 me-3 text-gray-500" onClick={() => minus(item.id)}>-</button>
+                                                    <button className="ms-3 me-3 text-gray-500 cursor-pointer hover:font-bold" onClick={() => minus(item.id)}>-</button>
                                                     <p className="mx-2">{quantity[item.id] || 1}</p>
-                                                    <button className="ms-3 me-3 text-gray-500" onClick={() => Plus(item.id)}>+</button>
+                                                    <button className="ms-3 me-3 text-gray-500 cursor-pointer hover:font-bold" onClick={() => Plus(item.id)}>+</button>
                                                 </div></div>
                                                 <p className='mx-2'>{item.price * quantity[item.id]}</p>
                                                 </div>
                                                 <div className=' mt-2'>
-                                                <IoMdCloseCircle onClick={() => removefromCart(item)} />
+                                                <IoMdCloseCircle className="cursor-pointer" onClick={() => removefromCart(item)} />
                                                 </div>
                                        
 

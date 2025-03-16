@@ -145,7 +145,8 @@ const Products = () => {
                 </button>
 
                 {/* Filter Section */}
-                <div className={`w-full md:w-1/4 p-4 ${isFilterVisible ? 'block' : 'hidden'} md:block`}>
+                <div className={`w-full md:w-1/4 
+                    p-4 ${isFilterVisible ? 'block' : 'hidden'} md:block`}>
                     <Productfilter
                         setPriceRange={setPriceRange}
                         setSelectedDiscount={setSelectedDiscount}

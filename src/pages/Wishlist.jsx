@@ -98,7 +98,7 @@ const Wishlist = () => {
                                                             </div>
                                                         ) : (
                                                             <div
-                                                                className='border-[1px] border-red-500 flex items-center justify-center p-1 me-2'
+                                                                className='border-[1px] border-red-500 flex items-center justify-center p-1 me-2 cursor-pointer hover:bg-gray-300'
                                                                 onClick={() => addtocart(item)}
                                                             >
                                                                 <MdOutlineShoppingCart className='mx-2' /> ADD TO CART
@@ -109,7 +109,7 @@ const Wishlist = () => {
                                                 </div>
                                              
                                                 <div className='flex justify-end'>
-                                                    <IoMdCloseCircle onClick={() => removeFromwl(item)} />
+                                                    <IoMdCloseCircle className='cursor-pointer' onClick={() => removeFromwl(item)} />
                                                 </div>
                                                
                                             </div>
@@ -124,9 +124,9 @@ const Wishlist = () => {
                                                         <p className='mx-2'>{item.title}</p>
                                                     </div>
                                                     <p className='w-[20%] px-2'>{item.price}</p>
-                                                    <p className={`w-[20%] px-8 ${item.availabilityStatus.includes("In") ? 'text-green-400' : item.availabilityStatus.includes("Low") ? 'text-orange-400' : 'text-red-400'}`}>{item.availabilityStatus}</p>
-                                                    <p className='w-[20%] '>{item.availabilityStatus.includes("Out") ? (<p className='text-gray-500 bg-gray-200 text-center '>OUT OF STOCK</p>) : <p className='border-[1px] border-red-500 flex items-center justify-center p-1 me-2' onClick={() => addtocart(item)}><MdOutlineShoppingCart className='mx-2' /><p className='hidden sm:block md:block lg:block'> ADD TO CART</p></p>} </p>
-                                                    <IoMdCloseCircle onClick={() => removeFromwl(item)} />
+                                                    <p className={`w-[20%] px-8  ${item.availabilityStatus.includes("In") ? 'text-green-400' : item.availabilityStatus.includes("Low") ? 'text-orange-400' : 'text-red-400'}`}>{item.availabilityStatus}</p>
+                                                    <p className='w-[20%] '>{item.availabilityStatus.includes("Out") ? (<p className='text-gray-500 bg-gray-200 text-center '>OUT OF STOCK</p>) : <p className='border-[1px] border-red-500 flex items-center justify-center p-1 me-2 cursor-pointer hover:bg-gray-300' onClick={() => addtocart(item)}><MdOutlineShoppingCart className='mx-2' /><p className='hidden sm:block md:block lg:block'> ADD TO CART</p></p>} </p>
+                                                    <IoMdCloseCircle className="cursor-pointer" onClick={() => removeFromwl(item)} />
                                                 </div>
 
                                                 <hr className='my-2 border-gray-300' />

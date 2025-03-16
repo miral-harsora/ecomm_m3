@@ -52,7 +52,9 @@ const ProductDetail = () => {
         setQuantity(quantity=>quantity+1)
     }
     const minus=()=>{
+        if(quantity>2){
         setQuantity(quantity=>quantity-1)
+        }
     }
     const addtocart=()=>{
         if(added.includes("GO")){
