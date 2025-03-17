@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { emailRegex, passwordRegex } from '../helper/Regex';
 import { useNavigate } from 'react-router-dom';
-const Login = () => {
+const Login = ({navbarHeight}) => {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [error, setError] = useState({ emailError: "", passwordError: "" })
@@ -85,7 +85,7 @@ const Login = () => {
     }
     return (
         <>
-            <div className="bg-[#F7A8C4] h-screen">
+            <div className="bg-gray-100 h-screen" style={{paddingTop: `${navbarHeight}px`}}>
 
                 {showAlert && (
                     <div
