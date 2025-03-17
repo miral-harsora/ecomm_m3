@@ -88,6 +88,7 @@ const Products = () => {
             setCurrIndex(currIndex + 16);
             setCurrPage(currPage + 1);
         }
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     };
 
     const prev = () => {
@@ -95,6 +96,7 @@ const Products = () => {
             setCurrIndex(currIndex - 16);
             setCurrPage(currPage - 1);
         }
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     };
 
     const handleImageError = (index) => {

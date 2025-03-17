@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToWishlist, getProducts, getSingleProduct } from '../action';
+import { addToWishlist, getCategorizedProducts, getProducts, getSingleProduct, searchProd } from '../action';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { IoIosStar, IoIosStarHalf, IoIosStarOutline, IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
+
 import { Link } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -68,8 +69,7 @@ const SelectedProducts = ({navbarHeight}) => {
     const checkWL = (id) => {
         return wl.some((item) => item.id === id);
     }
-
-
+    
     useEffect(() => {
         if (!products || !products.length) return;
 
@@ -78,7 +78,7 @@ const SelectedProducts = ({navbarHeight}) => {
             setProd(sortedProducts);
             setFilteredProducts(sortedProducts);
             console.log("Filtered Products: ", sortedProducts);
-        }, 0); // Slight delay to ensure state updates properly
+        }, 0); 
 
     }, [products]);
     useEffect(() => {
@@ -89,6 +89,7 @@ const SelectedProducts = ({navbarHeight}) => {
             setCurrIndex(currIndex + 16);
             setCurrPage(currPage + 1);
         }
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     };
 
     const prev = () => {
@@ -96,6 +97,7 @@ const SelectedProducts = ({navbarHeight}) => {
             setCurrIndex(currIndex - 16);
             setCurrPage(currPage - 1);
         }
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     };
 
     const handleImageError = (index) => {
