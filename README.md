@@ -26,6 +26,10 @@ Installation
 9.	npm run test
 10.	Build for Production:
 11.	npm run build
+
+
+
+
 Folder Structure
 /src
   |-- assets          # Images, icons, etc.
