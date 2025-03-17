@@ -277,7 +277,7 @@ useEffect(() => {
         </div>
       </div>
       {/* Mobile View */}
-      <div ref={mobileNavbarRef} className='flex flex-col py-2  min-xl:hidden  w-full  shadow fixed top-0 absolute z-5 w-full bg-white h-auto' data-testid="navbar">
+      <div ref={mobileNavbarRef} className='flex flex-col py-2  min-xl:hidden  w-full  shadow fixed top-0 absolute z-5 w-full bg-white h-auto' >
         <div className={`${isMenuOpen ? 'visible' : 'hidden'} fixed inset-0 flex bg-transparent absolute z-50`} onClick={toggleMenu}>
           <div className="bg-white rounded-lg shadow-lg w-[45%]" onClick={(e) => e.stopPropagation()} >
 

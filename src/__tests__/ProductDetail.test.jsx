@@ -124,7 +124,8 @@ it("check wishlist", async () => {
     });
     initialState.wishlist = mockproduct;
     initialState.wishlistItems=mockproduct;
-    renderWithRedux(<Navbar />, { initialState });
+    const mockSetNavbarHeight = vi.fn();
+    renderWithRedux(<Navbar setNavbarHeight={mockSetNavbarHeight}/>, { initialState });
       const wishlist_link = screen.getByTestId("wishlist_link");
       fireEvent.click(wishlist_link);
     

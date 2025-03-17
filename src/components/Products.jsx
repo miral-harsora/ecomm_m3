@@ -365,7 +365,7 @@ const Products = () => {
                                                                     </motion.div>
                                                                 </Link>
                                                             </>
-                                                        ))) : <p>No Products Found!</p>}
+                                                        ))) : <p data-testid="info">No Products found!</p>}
                                                 </div>
                     </div>
                     <div className="flex justify-center items-center my-4">

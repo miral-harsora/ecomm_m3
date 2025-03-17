@@ -23,7 +23,8 @@ const renderWithRouterAndRedux = (component, initialRoute = "/") => {
 };
 
 it("renders login link inside the navbar", () => {
-  renderWithRouterAndRedux(<Navbar />);
+  const mockSetNavbarHeight = vi.fn(); // Vitest mock function
+  renderWithRouterAndRedux(<Navbar setNavbarHeight={mockSetNavbarHeight} />);
 
   const navbar = screen.getByTestId("navbar");
   const login = screen.getByTestId("login");
@@ -39,7 +40,8 @@ it("renders login link inside the navbar", () => {
 });
 
 it("navigates to the login page when Login link is clicked", async () => {
-  renderWithRouterAndRedux(<Navbar />);
+  const mockSetNavbarHeight = vi.fn(); // Vitest mock function
+  renderWithRouterAndRedux(<Navbar setNavbarHeight={mockSetNavbarHeight} />);
   
   const loginLink = screen.getByTestId("login");
   fireEvent.click(loginLink);
