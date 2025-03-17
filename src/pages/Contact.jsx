@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Contact = () => {
+const Contact = ({navbarHeight}) => {
     return (
         <>
-            <div className='flex flex-col '>
+            <div className='flex flex-col ' style={{paddingTop: `${navbarHeight+10}px`}}>
                 <div className='mx-4 text-gray-500'>
                     <Link to="/"> Home</Link> / <Link to="/">Contact Us</Link>
                 </div>

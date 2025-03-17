@@ -4,10 +4,10 @@ import team from "../assets/team2.png"
 import { MdOutlineLocalShipping, MdOutlineContactSupport } from "react-icons/md";
 import { FaRegCircleCheck } from 'react-icons/fa6';
 import { RiSecurePaymentLine } from 'react-icons/ri'
-const AboutUs = () => {
+const AboutUs = ({navbarHeight}) => {
   return (
     <>
-      <div className='flex flex-col '>
+      <div className='flex flex-col ' style={{paddingTop: `${navbarHeight+10}px`}}>
         <div className='mx-4 text-gray-500'>
           <Link to="/"> Home</Link> / <Link to="/">About Us</Link>
         </div>

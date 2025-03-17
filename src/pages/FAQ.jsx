@@ -24,7 +24,7 @@ const faqs = [
   },
 ];
 
-const FAQ = () => {
+const FAQ = ({navbarHeight}) => {
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFAQ = (index) => {
@@ -32,7 +32,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6" style={{paddingTop: `${navbarHeight+10}px`}}>
       <h1 className="text-4xl font-bold text-center mb-8">Frequently Asked Questions</h1>
       <div className="space-y-4">
         {faqs.map((faq, index) => (
