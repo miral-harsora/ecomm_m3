@@ -32,7 +32,7 @@ export default function RangeSlider({ value, onChange }) {
         value={value}
         onChange={handleChange}
         valueLabelDisplay="auto"
-        min={10}
+        min={1}
         max={14000}
         step={100}
         disableSwap

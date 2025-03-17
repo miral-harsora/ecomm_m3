@@ -16,7 +16,7 @@ const Products = () => {
     useEffect(() => {
          dispatch(getProducts());
      }, [dispatch]);
-    const [priceRange, setPriceRange] = useState([10, 14000]);
+    const [priceRange, setPriceRange] = useState([1, 14000]);
     const [selectedDiscount, setSelectedDiscount] = useState("");
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const [isFilterVisible, setIsFilterVisible] = useState(true);
@@ -106,13 +106,13 @@ const Products = () => {
         console.log("clicked " + val)
         setSelected(val)
         if (val == "Price: High to Low") {
-            [...filteredProducts].sort((a, b) => b.price - a.price)
+            filteredProducts.sort((a, b) => b.price - a.price)
         } else if (val == "Price: Low to High") {
-            [...filteredProducts].sort((a, b) => a.price - b.price)
+            filteredProducts.sort((a, b) => a.price - b.price)
+        }else if(val=="Customer Rating"){
+            filteredProducts.sort((a, b) => b.rating - a.rating)
         }
-        else{
-            [...filteredProducts].sort((a, b) => b.rating - a.rating)
-        }
+
     }
     const toggleFilterVisibility = () => {
         setIsFilterVisible(!isFilterVisible);

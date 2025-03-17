@@ -3,13 +3,13 @@ import RangeSlider from './RangeSlider';
 import DiscountFilter from './DiscountFilter';
 
 const Filter = ({ setPriceRange, setSelectedDiscount }) => {
-    const [localPrice, setLocalPrice] = useState([10, 14000]);
+    const [localPrice, setLocalPrice] = useState([1, 14000]);
     const [localDiscount, setLocalDiscount] = useState("");
 
     const handleClearFilters = () => {
-        setLocalPrice([10, 14000]);
+        setLocalPrice([1, 14000]);
         setLocalDiscount("");
-        setPriceRange([10, 14000]); 
+        setPriceRange([1, 14000]); 
         setSelectedDiscount(""); 
     };
 

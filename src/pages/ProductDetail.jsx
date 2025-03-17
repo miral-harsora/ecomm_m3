@@ -58,7 +58,7 @@ const ProductDetail = ({navbarHeight}) => {
         setQuantity(quantity => quantity + 1)
     }
     const minus = () => {
-        if (quantity > 2) {
+        if (quantity > 1) {
             setQuantity(quantity => quantity - 1)
         }
     }

@@ -77,7 +77,8 @@ const AboutUs = ({navbarHeight}) => {
             </p>
           </div>
         </div>
-        <div className='flex justify-center items-center gap-16 p-4 bg-gray-100'>
+        <div className='flex justify-center bg-gray-100'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4 my-4 text-center '>
           <div className='flex flex-col items-center'>
             <MdOutlineLocalShipping size={48} />
             <p className='mt-1'>EASY EXCHANGE</p>
@@ -96,6 +97,7 @@ const AboutUs = ({navbarHeight}) => {
             <p className='mt-1'>CUSTOMER SUPPORT</p>
 
           </div>
+        </div>
         </div>
       </div>
     </>

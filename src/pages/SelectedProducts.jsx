@@ -14,7 +14,7 @@ import { motion } from 'framer-motion';
 import LazyImage from '../components/LazyImage';
 const SelectedProducts = ({navbarHeight}) => {
     const products = useSelector(state => state.filtered);
-    const [priceRange, setPriceRange] = useState([10, 14000]);
+    const [priceRange, setPriceRange] = useState([1, 14000]);
     const [selectedDiscount, setSelectedDiscount] = useState("");
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const [isFilterVisible, setIsFilterVisible] = useState(true);
@@ -110,6 +110,8 @@ const SelectedProducts = ({navbarHeight}) => {
             filteredProducts.sort((a, b) => b.price - a.price)
         } else if (val == "Price: Low to High") {
             filteredProducts.sort((a, b) => a.price - b.price)
+        }else if(val=="Customer Rating"){
+            filteredProducts.sort((a, b) => b.rating - a.rating)
         }
 
     }
