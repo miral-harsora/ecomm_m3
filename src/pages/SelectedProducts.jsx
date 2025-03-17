@@ -11,7 +11,6 @@ import Productfilter from '../components/Productfilter';
 import { FaChevronDown } from "react-icons/fa";
 import { FaFilter } from "react-icons/fa";
 import { motion } from 'framer-motion';
-import LazyImage from '../components/LazyImage';
 const SelectedProducts = ({navbarHeight}) => {
     const products = useSelector(state => state.filtered);
     const [priceRange, setPriceRange] = useState([1, 14000]);
@@ -303,12 +302,12 @@ const SelectedProducts = ({navbarHeight}) => {
 
                                                 </div>
                                                 <div className="h-[70%] items-center ">
-                                                    <LazyImage
+                                                    <img
                                                         src={imageErrors[product.id] ? 'https://images.pexels.com/photos/159868/lost-cat-tree-sign-fun-159868.jpeg' : product.thumbnail}
                                                         alt={product.title}
                                                         className="object-cover w-full h-auto aspect-[3/4]  bg-gray-300"
                                                         onError={() => handleImageError(product.id)}
-                                                        fallbackSrc="https://placehold.co/400x600?text=Loading..."
+                                                       
                                                     />
                                                 </div>
                                                 <div className=" text-center mb-2 items-center my-4">

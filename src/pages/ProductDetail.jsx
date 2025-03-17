@@ -19,6 +19,7 @@ const ProductDetail = ({navbarHeight}) => {
         setSelectedImg(product[0] ? product[0].images[0] : null)
         setProd(product[0])
         checkWL(product[0] ? product[0].id : null)
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }, [product])
     const calPercentage = (len) => {
         const per = (Math.floor((len / (product[0] ? product[0].reviews.length : 0)) * 100))
