@@ -1,5 +1,5 @@
 ShopSphere
-ShopSphere is a fully responsive eCommerce web application built using ReactJS. It offers a seamless shopping experience with intuitive navigation, product filtering, and secure checkout functionality.
+ShopSphere is a fully responsive eCommerce web application built using ReactJS. It offers a seamless shopping experience with intuitive navigation with product filtering functionality.
 Features
 ✅ Responsive Design: Mobile-first approach ensuring optimal user experience on all devices.
 ✅ Product Listing: Display a variety of products with detailed information.
