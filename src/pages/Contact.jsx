@@ -6,7 +6,7 @@ const Contact = ({navbarHeight}) => {
         <>
             <div className='flex flex-col ' style={{paddingTop: `${navbarHeight+10}px`}}>
                 <div className='mx-4 text-gray-500'>
-                    <Link to="/"> Home</Link> / <Link to="/">Contact Us</Link>
+                    <Link to="/"> Home</Link> / <span className='font-bold'>Contact Us</span>
                 </div>
                 <div className="max-w-6xl mx-auto p-6">
       <div className="grid md:grid-cols-3 gap-8">

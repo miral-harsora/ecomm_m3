@@ -9,7 +9,7 @@ const AboutUs = ({navbarHeight}) => {
     <>
       <div className='flex flex-col ' style={{paddingTop: `${navbarHeight+10}px`}}>
         <div className='mx-4 text-gray-500'>
-          <Link to="/"> Home</Link> / <Link to="/">About Us</Link>
+          <Link to="/"> Home</Link> / <span className='font-bold'>About Us</span>
         </div>
         <div className='w-[75%]  flex items-center justify-center mx-auto'>
           <img src={team} className='text-center' />

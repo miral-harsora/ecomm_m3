@@ -100,7 +100,7 @@ const ProductDetail = ({navbarHeight}) => {
             ) : (
                 <div className='my-2'>
                     <div className='mx-4'>
-                        <Link to="/"> Home</Link> / <Link to="/">{product[0].category}</Link> / {product[0].title}
+                        <Link to="/"> Home</Link> / {product[0].category} / <span className='font-bold'>{product[0].title}</span>
                     </div>
                     <div className='mx-4'>
 
