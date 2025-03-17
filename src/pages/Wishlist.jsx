@@ -91,7 +91,7 @@ const Wishlist = ({ navbarHeight }) => {
                                                             {item.availabilityStatus}
                                                         </p>
 
-                                                        {/* Fixed the nested <p> tag issue */}
+                                                       
                                                         <div className='mx-2'>
                                                             {item.availabilityStatus.includes("Out") ? (
                                                                 <div className='text-gray-500 bg-gray-200 text-center'>
@@ -99,7 +99,7 @@ const Wishlist = ({ navbarHeight }) => {
                                                                 </div>
                                                             ) : (
                                                                 <div
-                                                                    className='border-[1px] border-red-500 flex items-center justify-center p-1 me-2 cursor-pointer hover:bg-gray-300'
+                                                                    className='border-[1px] border-red-500 flex items-center justify-center p-1 me-2 cursor-pointer hover:bg-gray-300 rounded'
                                                                     onClick={() => addtocart(item)}
                                                                 >
                                                                     <MdOutlineShoppingCart className='mx-2' /> ADD TO CART
@@ -126,7 +126,7 @@ const Wishlist = ({ navbarHeight }) => {
                                                         </div>
                                                         <p className='w-[20%] px-2'>${item.price}</p>
                                                         <p className={`w-[20%] px-8  ${item.availabilityStatus.includes("In") ? 'text-green-400' : item.availabilityStatus.includes("Low") ? 'text-orange-400' : 'text-red-400'}`}>{item.availabilityStatus}</p>
-                                                        <p className='w-[20%] '>{item.availabilityStatus.includes("Out") ? (<p className='text-gray-500 bg-gray-200 text-center '>OUT OF STOCK</p>) : <p className='border-[1px] border-red-500 flex items-center justify-center p-1 me-2 cursor-pointer hover:bg-gray-300' onClick={() => addtocart(item)}><MdOutlineShoppingCart className='mx-2' /><p className='hidden sm:block md:block lg:block'> ADD TO CART</p></p>} </p>
+                                                        <p className='w-[20%] '>{item.availabilityStatus.includes("Out") ? (<p className='text-gray-500 bg-gray-200 text-center '>OUT OF STOCK</p>) : <p className='border-[1px] border-red-500 flex items-center justify-center p-1 me-2 cursor-pointer rounded hover:bg-gray-300' onClick={() => addtocart(item)}><MdOutlineShoppingCart className='mx-2' /><p className='hidden sm:block md:block lg:block'> ADD TO CART</p></p>} </p>
                                                         <IoMdCloseCircle className="cursor-pointer" onClick={() => removeFromwl(item)} />
                                                     </div>
 
