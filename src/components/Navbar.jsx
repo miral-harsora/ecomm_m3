@@ -5,14 +5,14 @@ import { FaSearch, FaChevronDown, FaChevronRight, FaChevronLeft } from 'react-ic
 import { MdMenu, MdOutlineShoppingCart } from "react-icons/md";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, getCategorizedProducts, searchProd } from '../action';
+import { getCart, getCategories, getCategorizedProducts, getWishlist, searchProd } from '../action';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import cartImg from "../assets/cart.png"
 import { useRef } from 'react';
 const Navbar = ({ setNavbarHeight }) => {
   const location = useLocation();
   const windowWidth = String(Math.floor(useRef(window.innerWidth).current) / 2) + "px";
-  console.log(windowWidth)
+  //console.log(windowWidth)
  
   const cart = useSelector(state => state.cart)
   const wishlist = useSelector(state => state.wishlist)
@@ -28,6 +28,8 @@ const Navbar = ({ setNavbarHeight }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCategories());
+    dispatch(getCart());
+    dispatch(getWishlist());
   }, [dispatch]);
   useEffect(() => {
     setIsDropdownOpen({
@@ -49,11 +51,15 @@ const Navbar = ({ setNavbarHeight }) => {
     dispatch(searchProd(e.target.value))
     navigate(`/${e.target.value}`)
   }
+  // const gotoCart=()=>{
+  //   dispatch(getCart())
+  // }
   useEffect(() => {
     console.log("categories " + categories)
     setCat(categories);
   }, [categories]);
   useEffect(() => {
+    console.log(cart);
     setCartNum(cart.reduce((acc, num) => {
       return (acc + num.quantity);
     }, 0))
@@ -272,7 +278,7 @@ useEffect(() => {
         </div>
         <div className='flex justify-end items-center'>
           <Link to="/login"><p className='font-bold mx-4' data-testid="login">Login / SignUp</p></Link>
-          <Link to="/cart"><div data-testid="cart" className={`w-4 h-4 bg-red-500 rounded-full border-4 border-red-500 absolute z-2 my-2 mx-8  flex items-center justify-center ${cartNum > 0 ? 'visible' : 'hidden'}`}><p className='text-xs text-white font-bold'>{cartNum}</p></div><MdOutlineShoppingCart className='mx-4' size={22}  ></MdOutlineShoppingCart></Link>
+          <Link to="/cart"><div data-testid="cart"  className={`w-4 h-4 bg-red-500 rounded-full border-4 border-red-500 absolute z-2 my-2 mx-8  flex items-center justify-center ${cartNum > 0 ? 'visible' : 'hidden'}`}><p className='text-xs text-white font-bold'>{cartNum}</p></div><MdOutlineShoppingCart className='mx-4' size={22} ></MdOutlineShoppingCart></Link>
           <Link to="/wishlist"><div data-testid="wishlist_link" className={`w-4 h-4 bg-red-500 rounded-full border-4 border-red-500 absolute z-2 my-2 mx-8  flex items-center justify-center ${wlNum > 0 ? 'visible' : 'hidden'}`}><p className='text-xs text-white font-bold'>{wlNum}</p></div><IoMdHeartEmpty className='mx-4' size={22} /></Link>
         </div>
       </div>

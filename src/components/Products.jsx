@@ -30,11 +30,16 @@ const Products = () => {
     const [hoveredProduct, setHoveredProduct] = useState(null);
     const [carouselIndex, setCarouselIndex] = useState({});
     const wl = useSelector(state => state.wishlist)
+    const [wishlist,setWishlist]=useState([]);
     const [selected, setSelected] = useState("Customer Rating")
     const [filteredProducts, setFilteredProducts] = useState([]);
+    const [wishlisted, setWishlisted] = useState(false)
     useEffect(() => {
         setProd(products);
     }, [products]);
+    useEffect(()=>{
+        setWishlist(wl)
+    },[wl]);
     useEffect(() => {
         const sortedProducts = [...products].sort((a, b) => b.rating - a.rating)
         setFilteredProducts(sortedProducts);
@@ -72,10 +77,13 @@ const Products = () => {
         if (!checkWL(prod.id)) {
             dispatch(addToWishlist(prod))
         }
+        //setWishlisted(true)
     }
 
     const checkWL = (id) => {
-        return wl?wl.some((item) => item.id === id):false;
+        console.log()
+        const res = wishlist.find((item) => item.id === id);
+        return res ? true:false
     }
 
  

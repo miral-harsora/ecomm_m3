@@ -16,13 +16,14 @@ const ProductDetail = ({navbarHeight}) => {
     const [added, setAdded] = useState("ADD TO CART")
     const [wishlisted, setWishlisted] = useState(false)
     useEffect(() => {
-        setSelectedImg(product[0] ? product[0].images[0] : null)
-        setProd(product[0])
-        checkWL(product[0] ? product[0].id : null)
+        console.log("Product detail "+JSON.stringify(product))
+        setSelectedImg(product ? product.images[0] : null)
+        setProd(product)
+        checkWL(product ? product.id : null)
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
     }, [product])
     const calPercentage = (len) => {
-        const per = (Math.floor((len / (product[0] ? product[0].reviews.length : 0)) * 100))
+        const per = (Math.floor((len / (product ? product.reviews.length : 0)) * 100))
         let val
         if (per == 0) {
             val = "0"
@@ -68,15 +69,15 @@ const ProductDetail = ({navbarHeight}) => {
             console.log("clicked")
             navigate('/cart')
         } else {
-            const prod = { ...product[0], quantity }
-            console.log(prod)
-            dispatch(addToCart(prod))
+            const cartProd = { ...prod, quantity }
+            console.log("product added "+JSON.stringify(cartProd))
+            dispatch(addToCart(cartProd))
             setAdded("GO TO CART ->")
         }
     }
     const addToWishList = () => {
-        if (!checkWL(product[0].id)) {
-            dispatch(addToWishlist(product[0]))
+        if (!checkWL(product.id)) {
+            dispatch(addToWishlist(product))
         }
         setWishlisted(true)
     }
@@ -89,11 +90,11 @@ const ProductDetail = ({navbarHeight}) => {
             setWishlisted(false)
         }
     }
-    const widthClass4 = calPercentage(product[0] ? product[0].reviews.filter((review) => review.rating == 4).length : 0);
-    const widthClass1 = calPercentage(product[0] ? product[0].reviews.filter((review) => review.rating == 1).length : 0);
-    const widthClass2 = calPercentage(product[0] ? product[0].reviews.filter((review) => review.rating == 2).length : 0);
-    const widthClass3 = calPercentage(product[0] ? product[0].reviews.filter((review) => review.rating == 3).length : 0);
-    const widthClass5 = calPercentage(product[0] ? product[0].reviews.filter((review) => review.rating == 5).length : 0);
+    const widthClass4 = calPercentage(product ? product.reviews.filter((review) => review.rating == 4).length : 0);
+    const widthClass1 = calPercentage(product ? product.reviews.filter((review) => review.rating == 1).length : 0);
+    const widthClass2 = calPercentage(product ? product.reviews.filter((review) => review.rating == 2).length : 0);
+    const widthClass3 = calPercentage(product ? product.reviews.filter((review) => review.rating == 3).length : 0);
+    const widthClass5 = calPercentage(product ? product.reviews.filter((review) => review.rating == 5).length : 0);
     return (
         <div style={{paddingTop: `${navbarHeight}px`}}>
             {!product || product.length === 0 ? (
@@ -101,7 +102,7 @@ const ProductDetail = ({navbarHeight}) => {
             ) : (
                 <div className='my-2'>
                     <div className='mx-4'>
-                        <Link to="/"> Home</Link> / {product[0].category} / <span className='font-bold'>{product[0].title}</span>
+                        <Link to="/"> Home</Link> / {product.category} / <span className='font-bold'>{product.title}</span>
                     </div>
                     <div className='mx-4'>
 
@@ -109,32 +110,32 @@ const ProductDetail = ({navbarHeight}) => {
                             {/* images */}
                             <div className=' flex  flex-col sm:hidden md:hidden lg:hidden'>
 
-                                <img src={selectedImg} alt={product[0].title} className='border-[1px] border-gray-200 bg-gray-200 mx-2 h-[400px]' />
+                                <img src={selectedImg} alt={product.title} className='border-[1px] border-gray-200 bg-gray-200 mx-2 h-[400px]' />
                                 <div className='flex sm:flex-col md:flex-col lg:flex-col items-center mt-2'>
-                                    {product[0].images.map((img) => (
+                                    {product.images.map((img) => (
 
-                                        <img src={img} alt={product[0].title} width={75} className={`border-[1px]  p-2 mb-1 mx-2 bg-gray-200 ${img == selectedImg ? 'border-[#F7569B]' : 'border-gray-200'}`} onClick={() => setSelectedImg(img)} />
+                                        <img src={img} alt={product.title} width={75} className={`border-[1px]  p-2 mb-1 mx-2 bg-gray-200 ${img == selectedImg ? 'border-[#F7569B]' : 'border-gray-200'}`} onClick={() => setSelectedImg(img)} />
                                     ))}
-                                    {/* <img src={product[0].thumbnail} alt={product[0].title} width={75} className='border-[1px] border-gray-200 p-2 my-1 mx-2 bg-gray-200'/> */}
+                                    {/* <img src={product.thumbnail} alt={product.title} width={75} className='border-[1px] border-gray-200 p-2 my-1 mx-2 bg-gray-200'/> */}
                                 </div>
                             </div>
                             <div className=' flex  hidden sm:flex md:flex lg:flex'>
                                 <div className='flex sm:flex-col md:flex-col lg:flex-col items-center'>
-                                    {product[0].images.map((img) => (
+                                    {product.images.map((img) => (
 
-                                        <img src={img} alt={product[0].title} width={75} className={`border-[1px]  p-2 mb-1 mx-2 bg-gray-200 ${img == selectedImg ? 'border-[#F7569B]' : 'border-gray-200'}`} onClick={() => setSelectedImg(img)} />
+                                        <img src={img} alt={product.title} width={75} className={`border-[1px]  p-2 mb-1 mx-2 bg-gray-200 ${img == selectedImg ? 'border-[#F7569B]' : 'border-gray-200'}`} onClick={() => setSelectedImg(img)} />
                                     ))}
-                                    {/* <img src={product[0].thumbnail} alt={product[0].title} width={75} className='border-[1px] border-gray-200 p-2 my-1 mx-2 bg-gray-200'/> */}
+                                    {/* <img src={product.thumbnail} alt={product.title} width={75} className='border-[1px] border-gray-200 p-2 my-1 mx-2 bg-gray-200'/> */}
                                 </div>
-                                <img src={selectedImg} alt={product[0].title} className='border-[1px] border-gray-200 bg-gray-200 mx-2 h-[400px]' />
+                                <img src={selectedImg} alt={product.title} className='border-[1px] border-gray-200 bg-gray-200 mx-2 h-[400px]' />
                             </div>
                             <div className='w-[50%] flex sm:ms-12 md:ms-12 lg:ms-12'>
                                 <div className='flex  flex-col justify-start'>
-                                    <p className='text-2xl font-bold'>{product[0].brand}</p>
-                                    <p className='text-2xl text-gray-500' data-testid="title">{product[0].title}</p>
+                                    <p className='text-2xl font-bold'>{product.brand}</p>
+                                    <p className='text-2xl text-gray-500' data-testid="title">{product.title}</p>
 
                                     <div className='flex    '>
-                                        {(product[0].rating > 4 && product[0].rating < 5) ? (
+                                        {(product.rating > 4 && product.rating < 5) ? (
                                             <div className='flex justify-center items-center '>
                                                 <IoIosStar style={{ color: "#F2BC5A" }} />
                                                 <IoIosStar style={{ color: "#F2BC5A" }} />
@@ -142,26 +143,26 @@ const ProductDetail = ({navbarHeight}) => {
                                                 <IoIosStar style={{ color: "#F2BC5A" }} />
                                                 <IoIosStarHalf style={{ color: "#F2BC5A" }} />
                                             </div>
-                                        ) : (product[0].rating > 3 && product[0].rating < 4) ? (<div className='flex justify-center  items-center'>
+                                        ) : (product.rating > 3 && product.rating < 4) ? (<div className='flex justify-center  items-center'>
                                             <IoIosStar style={{ color: "#F2BC5A" }} />
                                             <IoIosStar style={{ color: "#F2BC5A" }} />
                                             <IoIosStar style={{ color: "#F2BC5A" }} />
                                             <IoIosStarHalf style={{ color: "#F2BC5A" }} />
                                             <IoIosStarOutline style={{ color: "#F2BC5A" }} />
-                                        </div>) : (product[0].rating > 2 && product[0].rating < 3) ? (<div className='flex justify-center  items-center '>
+                                        </div>) : (product.rating > 2 && product.rating < 3) ? (<div className='flex justify-center  items-center '>
                                             <IoIosStar style={{ color: "#F2BC5A" }} />
                                             <IoIosStar style={{ color: "#F2BC5A" }} />
                                             <IoIosStarHalf style={{ color: "#F2BC5A" }} />
                                             <IoIosStarOutline style={{ color: "#F2BC5A" }} />
                                             <IoIosStarOutline style={{ color: "#F2BC5A" }} />
-                                        </div>) : (product[0].rating > 1 && product[0].rating < 2) ? (<div className='flex justify-center  items-center '>
+                                        </div>) : (product.rating > 1 && product.rating < 2) ? (<div className='flex justify-center  items-center '>
                                             <IoIosStar style={{ color: "#F2BC5A" }} />
 
                                             <IoIosStarHalf style={{ color: "#F2BC5A" }} />
                                             <IoIosStarOutline style={{ color: "#F2BC5A" }} />
                                             <IoIosStarOutline style={{ color: "#F2BC5A" }} />
                                             <IoIosStarOutline style={{ color: "#F2BC5A" }} />
-                                        </div>) : (product[0].rating > 0 && product[0].rating < 1) ? (<div className='flex justify-center  items-center'>
+                                        </div>) : (product.rating > 0 && product.rating < 1) ? (<div className='flex justify-center  items-center'>
 
 
                                             <IoIosStarHalf style={{ color: "#F2BC5A" }} />
@@ -178,9 +179,9 @@ const ProductDetail = ({navbarHeight}) => {
                                             <IoIosStarOutline style={{ color: "#F2BC5A" }} />
                                             <IoIosStarOutline style={{ color: "#F2BC5A" }} />
                                         </div>)}
-                                        <p className='mx-2'> ({product[0].reviews.length} reviews)</p>
+                                        <p className='mx-2'> ({product.reviews.length} reviews)</p>
                                     </div>
-                                    <p className='text-2xl font-bold'>{product[0].price} <span className='text-green-300'>({product[0].discountPercentage}% OFF)</span></p>
+                                    <p className='text-2xl font-bold'>{product.price} <span className='text-green-300'>({product.discountPercentage}% OFF)</span></p>
                                     <div className="flex py-2">
                                         <p>Qty:</p>
                                         <div className='border-[1px] border-gray-300 flex mx-8'><button className='ms-1 me-8 text-gray-500' data-testid="minus" onClick={minus}>-</button><p data-testid="quantity" className='mx-2'>{quantity}</p><button className='ms-8 me-1 text-gray-500' data-testid="plus" onClick={Plus}>+</button></div>
@@ -191,48 +192,48 @@ const ProductDetail = ({navbarHeight}) => {
                                     </div>
                                     <hr className='my-2 border-gray-300' />
                                     <p className='font-bold'>PRODUCT DETAILS </p>
-                                    <p className='w-1/2 text-gray-500'>{product[0].description}</p>
+                                    <p className='w-1/2 text-gray-500'>{product.description}</p>
                                     <p className='mt-2 font-bold'>Specifications</p>
                                     <div className='grid grid-cols-2 gap-4'>
                                         <div className='flex flex-col'>
                                             <p className='text-gray-500 text-sm mt-2'>SKU</p>
-                                            <p className=''>{product[0].sku}</p>
+                                            <p className=''>{product.sku}</p>
                                             <hr className='mt-4 border-gray-300' />
                                         </div>
                                         <div className='flex flex-col mx-4'>
                                             <p className='text-gray-500 text-sm mt-2'>Weight</p>
-                                            <p className=''>{product[0].weight}</p>
+                                            <p className=''>{product.weight}</p>
                                             <hr className='mt-4 border-gray-300' />
                                         </div>
 
 
                                         <div className='flex flex-col'>
                                             <p className='text-gray-500 text-sm mt-2'>Dimensions</p>
-                                            <p className=''>W:{Math.floor(product[0].dimensions.width)} x H:{Math.floor(product[0].dimensions.height)} x D:{Math.floor(product[0].dimensions.depth)}</p>
+                                            <p className=''>W:{Math.floor(product.dimensions.width)} x H:{Math.floor(product.dimensions.height)} x D:{Math.floor(product.dimensions.depth)}</p>
                                             <hr className='mt-4 border-gray-300' />
                                         </div>
                                         <div className='flex flex-col mx-4'>
                                             <p className='text-gray-500 text-sm mt-2'>Warranty</p>
-                                            <p className=''>{product[0].warrantyInformation}</p>
+                                            <p className=''>{product.warrantyInformation}</p>
                                             <hr className='mt-4 border-gray-300' />
                                         </div>
                                         <div className='flex flex-col'>
                                             <p className='text-gray-500 text-sm mt-2'>Shipping Info</p>
-                                            <p className=''>{product[0].shippingInformation}</p>
+                                            <p className=''>{product.shippingInformation}</p>
                                             <hr className='mt-4 border-gray-300' />
                                         </div>
                                         <div className='flex flex-col mx-4'>
                                             <p className='text-gray-500 text-sm mt-2'>Availability</p>
-                                            <p className=''>{product[0].availabilityStatus}</p>
+                                            <p className=''>{product.availabilityStatus}</p>
                                             <hr className='mt-4 border-gray-300' />
                                         </div>
                                         <div className='flex flex-col'>
                                             <p className='text-gray-500 text-sm mt-2'>Return Policy</p>
-                                            <p className=''>{product[0].returnPolicy}</p>
+                                            <p className=''>{product.returnPolicy}</p>
                                         </div>
                                         <div className='flex flex-col mx-4'>
                                             <p className='text-gray-500 text-sm mt-2'>Minimum Order Quantity</p>
-                                            <p className=''>{product[0].minimumOrderQuantity}</p>
+                                            <p className=''>{product.minimumOrderQuantity}</p>
                                         </div>
                                     </div>
                                     <hr className='my-2 border-gray-300' />
@@ -240,40 +241,40 @@ const ProductDetail = ({navbarHeight}) => {
                                     <div className='grid grid-cols-2 gap-8 mt-4 divide-x-1 divide-solid divide-gray-200'>
                                         <div className='flex flex-col'>
                                             <div className='flex items-center'>
-                                                <p className='text-3xl '>{product[0].rating}</p>
+                                                <p className='text-3xl '>{product.rating}</p>
                                                 <IoIosStar className='mx-2' size={22} style={{ color: "#F2BC5A" }} />
                                             </div>
-                                            <p className='text-sm'>{product[0].reviews.length} Verified Buyers</p>
+                                            <p className='text-sm'>{product.reviews.length} Verified Buyers</p>
 
                                         </div>
                                         <div className='flex flex-col mx-4'>
                                             <div className='flex items-center'>
                                                 <p className='text-sm'>5</p><IoIosStar size={10} style={{ color: "gray" }} /><div className=' mx-1 w-[120px] h-[5px] bg-gray-200'><div className={`h-full bg-green-500`} style={{ width: widthClass5 === "full" ? "100%" : widthClass5 }}>
-                                                </div></div><p className='text-xs'>{product[0].reviews.filter((review) => review.rating == 5).length}</p>
+                                                </div></div><p className='text-xs'>{product.reviews.filter((review) => review.rating == 5).length}</p>
                                             </div>
                                             <div className='flex items-center'>
                                                 <p className='text-sm'>4</p><IoIosStar size={10} style={{ color: "gray" }} />
                                                 <div className=' mx-1 w-[120px] h-[5px] bg-gray-200'>
                                                     <div className={`h-full bg-green-500`} style={{ width: widthClass4 === "full" ? "100%" : widthClass4 }}>
-                                                    </div></div><p className='text-xs'>{product[0].reviews.filter((review) => review.rating == 4).length} </p>
+                                                    </div></div><p className='text-xs'>{product.reviews.filter((review) => review.rating == 4).length} </p>
                                             </div>
                                             <div className='flex items-center'>
                                                 <p className='text-sm'>3</p><IoIosStar size={10} style={{ color: "gray" }} /><div className=' mx-1 w-[120px] h-[5px] bg-gray-200'><div className={`h-full bg-green-500`} style={{ width: widthClass3 === "full" ? "100%" : widthClass3 }}>
-                                                </div></div><p className='text-xs'>{product[0].reviews.filter((review) => review.rating == 3).length}</p>
+                                                </div></div><p className='text-xs'>{product.reviews.filter((review) => review.rating == 3).length}</p>
                                             </div>
                                             <div className='flex items-center'>
                                                 <p className='text-sm'>2</p><IoIosStar size={10} style={{ color: "gray" }} /><div className=' mx-1 w-[120px] h-[5px] bg-gray-200'><div className={`h-full bg-green-500`} style={{ width: widthClass2 === "full" ? "100%" : widthClass2 }}>
-                                                </div></div><p className='text-xs'>{product[0].reviews.filter((review) => review.rating == 2).length}</p>
+                                                </div></div><p className='text-xs'>{product.reviews.filter((review) => review.rating == 2).length}</p>
                                             </div>
                                             <div className='flex items-center'>
                                                 <p className='text-sm'>1</p><IoIosStar size={10} style={{ color: "gray" }} /><div className=' mx-1 w-[120px] h-[5px] bg-gray-200'><div className={`h-full bg-green-500`} style={{ width: widthClass1 === "full" ? "100%" : widthClass1 }}>
-                                                </div></div><p className='text-xs'>{product[0].reviews.filter((review) => review.rating == 1).length}</p>
+                                                </div></div><p className='text-xs'>{product.reviews.filter((review) => review.rating == 1).length}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <hr className='my-2 border-gray-300' />
                                     <p className='font-bold'>Reviews</p>
-                                    {product[0].reviews.map((review) => (
+                                    {product.reviews.map((review) => (
                                         <div className='flex flex-col'>
                                             <div className='flex mt-4'>
 

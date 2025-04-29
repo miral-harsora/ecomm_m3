@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { RiCoupon4Line } from 'react-icons/ri';
-import { removeFromCart } from '../action';
+import { removeFromCart, updateCart } from '../action';
 
 const Cart = () => {
     const [
@@ -104,6 +104,11 @@ const Cart = () => {
             ...prev,
             [id]: (prev[id] || 0) + 1
         }));
+        const prod=cartItems.find(cart=>cart.id==id)
+        const quant=(cartItems.find(cart=>cart.id==id).quantity+1)
+        const update={...prod,quantity:quant}
+    console.log("plus cart "+JSON.stringify(cartItems.find(cart=>cart.id==id))+" "+(cartItems.find(cart=>cart.id==id).quantity+1)+" "+JSON.stringify(update))
+      dispatch(updateCart(update))
     };
 
     const minus = (id) => {
@@ -111,11 +116,20 @@ const Cart = () => {
             ...prev,
             [id]: Math.max((prev[id] || 0) - 1, 1)
         }));
+        const prod=cartItems.find(cart=>cart.id==id)
+        const quant=(Math.max(cartItems.find(cart=>cart.id==id).quantity-1,1))
+        if(quant>1){
+        const update={...prod,quantity:quant}
+    console.log("minus cart "+JSON.stringify(cartItems.find(cart=>cart.id==id))+" "+(cartItems.find(cart=>cart.id==id).quantity-1)+" "+JSON.stringify(update))
+      dispatch(updateCart(update))
+        }
     };
     const getTotalPrice = () => {
-        return cartItems.reduce((total, item) => {
-            return (total + item.price * (quantity[item.id] || 1)).toFixed(2);
+        console.log(JSON.stringify(cartItems)+" "+quantity)
+        const total= cartItems.reduce((sum, item) => {
+            return (sum + item.price * (quantity[item.id] || 1))
         }, 0);
+        return total.toFixed(2);
     };
     const final = () => {
         if (selectedValue == "option1") {
@@ -172,14 +186,14 @@ const Cart = () => {
                                                     <img src={item.thumbnail} width={50} className='bg-gray-300' />
                                                     <p className='mx-2' data-testid="title">{item.title}</p>
                                                 </div>
-                                                <p className='w-[20%]'>${item.price * quantity[item.id]}</p>
+                                                <p className='w-[20%]'>${(item.price * quantity[item.id]).toFixed(2)}</p>
                                                 <div className='w-[20%] '> <div className="w-3/4 border-[1px] border-gray-300 flex h-[30px] justify-center ">
                                                     <button className="ms-3 me-3 text-gray-500 cursor-pointer hover:font-bold" onClick={() => minus(item.id)}>-</button>
                                                     <p className="mx-2">{quantity[item.id] || 1}</p>
                                                     <button className="ms-3 me-3 text-gray-500 cursor-pointer  hover:font-bold" onClick={() => Plus(item.id)}>+</button>
                                                 </div></div>
-                                                <p className='w-[20%]'>${item.price * quantity[item.id]}</p>
-                                                <IoMdCloseCircle  className="cursor-pointer" onClick={() => removefromCart(item)} />
+                                                <p className='w-[20%]'>${(item.price * quantity[item.id]).toFixed(2)}</p>
+                                                <IoMdCloseCircle  className="cursor-pointer" onClick={() => removefromCart(item.id)} />
                                             </div>
 
                                             <hr className='my-2 border-gray-300' />
@@ -202,7 +216,7 @@ const Cart = () => {
                                                 <p className='mx-2'>${item.price * quantity[item.id]}</p>
                                                 </div>
                                                 <div className=' mt-2'>
-                                                <IoMdCloseCircle className="cursor-pointer" onClick={() => removefromCart(item)} />
+                                                <IoMdCloseCircle className="cursor-pointer" onClick={() => removefromCart(item.id)} />
                                                 </div>
                                        
 

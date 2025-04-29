@@ -17,10 +17,11 @@ const Wishlist = ({ navbarHeight }) => {
         const prod = { ...val, quantity: 1 }
         console.log(prod)
         dispatch(addToCart(prod))
-        dispatch(removeFromWL(val))
+        dispatch(removeFromWL(val.id))
         setMove(true)
     }
     const removeFromwl = (val) => {
+        console.log(val)
         dispatch(removeFromWL(val))
         setRemove(true)
     }
@@ -110,7 +111,7 @@ const Wishlist = ({ navbarHeight }) => {
                                                     </div>
 
                                                     <div className='flex justify-end'>
-                                                        <IoMdCloseCircle className='cursor-pointer' onClick={() => removeFromwl(item)} />
+                                                        <IoMdCloseCircle className='cursor-pointer' onClick={() => removeFromwl(item.id)} />
                                                     </div>
 
                                                 </div>
@@ -127,7 +128,7 @@ const Wishlist = ({ navbarHeight }) => {
                                                         <p className='w-[20%] px-2'>${item.price}</p>
                                                         <p className={`w-[20%] px-8  ${item.availabilityStatus.includes("In") ? 'text-green-400' : item.availabilityStatus.includes("Low") ? 'text-orange-400' : 'text-red-400'}`}>{item.availabilityStatus}</p>
                                                         <p className='w-[20%] '>{item.availabilityStatus.includes("Out") ? (<p className='text-gray-500 bg-gray-200 text-center '>OUT OF STOCK</p>) : <p className='border-[1px] border-red-500 flex items-center justify-center p-1 me-2 cursor-pointer rounded hover:bg-gray-300' onClick={() => addtocart(item)}><MdOutlineShoppingCart className='mx-2' /><p className='hidden sm:block md:block lg:block'> ADD TO CART</p></p>} </p>
-                                                        <IoMdCloseCircle className="cursor-pointer" onClick={() => removeFromwl(item)} />
+                                                        <IoMdCloseCircle className="cursor-pointer" onClick={() => removeFromwl(item.id)} />
                                                     </div>
 
                                                     <hr className='my-2 border-gray-300' />
