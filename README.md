@@ -17,7 +17,7 @@ Tech Stack
 Installation
 1.	Clone the Repository:
 2.	git clone (https://github.com/miralsh/ecomm_m3.git)
-3.	cd shopsphere
+3.	cd folder
 4.	Install Dependencies:
 5.	npm install
 6.	Run the Development Server:
@@ -26,6 +26,10 @@ Installation
 9.	npm run test
 10.	Build for Production:
 11.	npm run build
+
+
+
+
 Folder Structure
 /src
   |-- assets          # Images, icons, etc.
