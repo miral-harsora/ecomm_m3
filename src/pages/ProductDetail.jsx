@@ -96,7 +96,7 @@ const ProductDetail = ({navbarHeight}) => {
     const widthClass3 = calPercentage(product ? product.reviews.filter((review) => review.rating == 3).length : 0);
     const widthClass5 = calPercentage(product ? product.reviews.filter((review) => review.rating == 5).length : 0);
     return (
-        <div style={{paddingTop: `${navbarHeight}px`}}>
+        <div >
             {!product || product.length === 0 ? (
                 <p>Loading...</p>
             ) : (

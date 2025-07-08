@@ -85,7 +85,7 @@ const Login = ({navbarHeight}) => {
     }
     return (
         <>
-            <div className="bg-gray-100 h-screen" style={{paddingTop: `${navbarHeight}px`}}>
+            <div className="bg-gray-100 h-screen" >
 
                 {showAlert && (
                     <div

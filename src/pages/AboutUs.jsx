@@ -7,7 +7,7 @@ import { RiSecurePaymentLine } from 'react-icons/ri'
 const AboutUs = ({navbarHeight}) => {
   return (
     <>
-      <div className='flex flex-col ' style={{paddingTop: `${navbarHeight+10}px`}}>
+      <div className='flex flex-col ' style={{paddingTop: 10}}>
         <div className='mx-4 text-gray-500'>
           <Link to="/"> Home</Link> / <span className='font-bold'>About Us</span>
         </div>

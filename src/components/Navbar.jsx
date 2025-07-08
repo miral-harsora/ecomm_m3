@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useLayoutEffect } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import ShopSphere from '../assets/ShopSphere_logo.png'
 import ShopSphere_initial from '../assets/ShopSphere_initial.png'
 import { FaSearch, FaChevronDown, FaChevronRight, FaChevronLeft } from 'react-icons/fa';
@@ -10,10 +10,32 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import cartImg from "../assets/cart.png"
 import { useRef } from 'react';
 const Navbar = ({ setNavbarHeight }) => {
+  const megaMenuData = {
+    Men: {
+      Topwear: ['mens-shirts'],
+      Footwear: ['mens-shoes'],
+      Watches: ['mens-watches']
+    },
+    Women: {
+      Topwear: ['tops', 'womens-dresses'],
+      Footwear: ['womens-shoes'],
+      Accessories: ['womens-watches', 'womens-bags', 'womens-jewellery']
+    },
+    Electronics: {
+      Devices: ['smartphones', 'laptops']
+    },
+    Home: {
+      Decor: ['home-decoration', 'furniture'],
+      Essentials: ['groceries']
+    },
+    Beauty: {
+      PersonalCare: ['fragrances', 'skincare']
+    }
+  };
   const location = useLocation();
   const windowWidth = String(Math.floor(useRef(window.innerWidth).current) / 2) + "px";
-  //console.log(windowWidth)
- 
+
+
   const cart = useSelector(state => state.cart)
   const wishlist = useSelector(state => state.wishlist)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -68,20 +90,57 @@ const Navbar = ({ setNavbarHeight }) => {
     setwlNum(wishlist.length)
   }, [wishlist]);
   const desktopNavbarRef = useRef(null);
-const mobileNavbarRef = useRef(null);
-useEffect(() => {
-  const updateHeight = () => {
+  const mobileNavbarRef = useRef(null);
+  useEffect(() => {
+    const updateHeight = () => {
       const desktopHeight = desktopNavbarRef.current?.clientHeight || 0;
       const mobileHeight = mobileNavbarRef.current?.clientHeight || 0;
       const calculatedHeight = Math.max(desktopHeight, mobileHeight);
       setNavbarHeight(calculatedHeight);
-  };
+    };
 
-  window.addEventListener('resize', updateHeight);
-  updateHeight(); // Initial height calculation
+    window.addEventListener('resize', updateHeight);
+    updateHeight(); // Initial height calculation
 
-  return () => window.removeEventListener('resize', updateHeight);
-}, [categories, setNavbarHeight]);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, [categories, setNavbarHeight]);
+
+  const renderMegaMenu = (title, dataKey, dropId) => (
+    <div
+      className="relative group"
+      onMouseEnter={() => setIsDropdownOpen({ [dropId]: true })}
+      onMouseLeave={() => setIsDropdownOpen({ [dropId]: false })}
+    >
+      <div className="flex items-center h-full">
+        <button className="px-4 py-2 font-medium text-black hover:text-[#F7569B] transition">
+          {title}
+        </button>
+      </div>
+      {isDropdownOpen[dropId] && (
+        <div className="absolute left-0 top-full min-w-[40rem] bg-white border-t border-gray-200 shadow-lg z-40 py-6 rounded">
+          <div className="grid grid-cols-4 gap-8 px-8 text-sm text-gray-800">
+            {Object.entries(megaMenuData[dataKey]).map(([heading, items]) => (
+              <div key={heading}>
+                <h4 className="font-bold text-black mb-3 items-center">{heading}</h4>
+                <ul className="space-y-2">
+                  {items.filter(item => categories.includes(item)).map(category => (
+                    <li
+                      key={category}
+                      onClick={() => onCategory(category)}
+                      className="hover:text-[#F7569B] cursor-pointer"
+                    >
+                      {category.replace(/mens-|womens-/, '').replace('-', ' ')}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
   const CategoryList = ({ keyword, val }) => {
     return (
       <ul className="space-y-2">
@@ -139,13 +198,13 @@ useEffect(() => {
   return (
     <>
       {/* Desktop View */}
-      <div  ref={desktopNavbarRef} className='hidden  min-xl:flex justify-between items-center shadow fixed top-0 absolute z-5 w-full bg-white h-auto' data-testid="navbar">
+      <div ref={desktopNavbarRef} className="relative hidden min-xl:flex justify-between items-center shadow fixed top-0 z-50 w-full bg-white" data-testid="navbar">
         <div className='flex justify-start'>
           <Link to="/"> <img src={ShopSphere} width={120} /></Link>
-          <div
+          {/* <div
             className="relative group flex items-center mx-4"
-            onMouseEnter={() => toggleDropdownOpen(1)}
-            onMouseLeave={() => toggleDropdown(1)}
+            onMouseEnter={() => setIsDropdownOpen({ ...isDropdownOpen, [1]: true })}
+            onMouseLeave={() => setIsDropdownOpen({ ...isDropdownOpen, [1]: false })}
           >
             <button className="bg-white text-black px-4 py-2 hover:text-[#F7569B] transition-all duration-300">
               Men
@@ -153,7 +212,7 @@ useEffect(() => {
 
             {isDropdownOpen[1] && (
               <div className="absolute left-0 top-[100%] w-48 bg-white text-black shadow-md rounded-b-lg z-10 py-4">
-                {/* Men */}
+                
                 <div  >
 
                   <CategoryList keyword={["mens"]} val={1} />
@@ -163,14 +222,14 @@ useEffect(() => {
               </div>
             )}
           </div>
-          <div className="relative group flex items-center mx-4 " onMouseEnter={() => toggleDropdownOpen(2)}  // Keep open when hovering
-            onMouseLeave={() => toggleDropdown(2)}>
-            {/* Dropdown Button */}
+          <div className="relative group flex items-center mx-4 " onMouseEnter={() => setIsDropdownOpen({ ...isDropdownOpen, [2]: true })}
+            onMouseLeave={() => setIsDropdownOpen({ ...isDropdownOpen, [2]: false })}>
+          
             <button className="bg-white text-black px-4 py-2 hover:text-[#F7569B] transition-all duration-300">
 
               Women
             </button>
-            {/* Dropdown Menu */}
+            
             {isDropdownOpen[2] && (
               <div className="absolute left-0 top-[100%] w-48 bg-white text-black shadow-md rounded-b-lg z-10 py-4">
 
@@ -182,13 +241,13 @@ useEffect(() => {
               </div>
             )}
           </div>
-          <div className="relative group flex items-center mx-4" onMouseEnter={() => toggleDropdownOpen(3)}  // Keep open when hovering
-            onMouseLeave={() => toggleDropdown(3)}>
-            {/* Dropdown Button */}
+          <div className="relative group flex items-center mx-4"  onMouseEnter={() => setIsDropdownOpen({ ...isDropdownOpen, [3]: true })}
+            onMouseLeave={() => setIsDropdownOpen({ ...isDropdownOpen, [3]: false })}>
+           
             <button className="bg-white text-black px-4 py-2 hover:text-[#F7569B] transition-all duration-300">
               Beauty
             </button>
-            {/* Dropdown Menu */}
+           
             {isDropdownOpen[3] && (
               <div className="absolute left-0 top-[100%] w-48 bg-white text-black shadow-md rounded-b-lg z-10 py-4">
 
@@ -199,24 +258,24 @@ useEffect(() => {
             )}
 
           </div>
-          <div className="relative group flex items-center mx-4" onMouseEnter={() => toggleDropdownOpen(4)}  // Keep open when hovering
-            onMouseLeave={() => toggleDropdown(4)}>
-            {/* Dropdown Button */}
+          <div className="relative group flex items-center mx-4"  onMouseEnter={() => setIsDropdownOpen({ ...isDropdownOpen, [4]: true })}
+            onMouseLeave={() => setIsDropdownOpen({ ...isDropdownOpen, [4]: false })}>
+          
             <button className="bg-white text-black px-4 py-2 hover:text-[#F7569B] transition-all duration-300">
               Accessories
             </button>
             {isDropdownOpen[4] && (
               <div className="absolute left-0 top-[100%] w-48 bg-white text-black shadow-md rounded-b-lg z-10 py-4">
-                {/* Men */}
+              
                 <div >
                   <CategoryList keyword={["kitchen-accessories", "mobile-accessories", "sports-accessories"]} val={4} />
                 </div>
               </div>
             )}
           </div>
-          <div className="relative group flex items-center mx-4 " onMouseEnter={() => toggleDropdownOpen(5)}  // Keep open when hovering
-            onMouseLeave={() => toggleDropdown(5)}>
-            {/* Dropdown Button */}
+          <div className="relative group flex items-center mx-4 "  onMouseEnter={() => setIsDropdownOpen({ ...isDropdownOpen, [5]: true })}
+            onMouseLeave={() => setIsDropdownOpen({ ...isDropdownOpen, [5]: false })}>
+           
             <button className="bg-white text-black px-4 py-2 hover:text-[#F7569B] transition-all duration-300">
               Home Decor
             </button>
@@ -229,9 +288,9 @@ useEffect(() => {
               </div>
             )}
           </div>
-          <div className="relative group flex items-center mx-4 " onMouseEnter={() => toggleDropdownOpen(6)}  // Keep open when hovering
-            onMouseLeave={() => toggleDropdown(6)}>
-            {/* Dropdown Button */}
+          <div className="relative group flex items-center mx-4 "  onMouseEnter={() => setIsDropdownOpen({ ...isDropdownOpen, [6]: true })}
+            onMouseLeave={() => setIsDropdownOpen({ ...isDropdownOpen, [6]: false })}>
+          
             <button className="bg-white text-black px-4 py-2 hover:text-[#F7569B] transition-all duration-300">
               Electronics
             </button>
@@ -243,8 +302,12 @@ useEffect(() => {
                 </div>
               </div>
             )}
-          </div>
-
+          </div> */}
+          {renderMegaMenu('Men', 'Men', 1)}
+          {renderMegaMenu('Women', 'Women', 2)}
+          {renderMegaMenu('Beauty', 'Beauty', 3)}
+          {renderMegaMenu('Home', 'Home', 4)}
+          {renderMegaMenu('Electronics', 'Electronics', 5)}
           {/* <div className='flex items-center justify-center'>
                         <div className='mx-4 bg-white text-black px-4 py-2  '>
                             Men
@@ -278,7 +341,7 @@ useEffect(() => {
         </div>
         <div className='flex justify-end items-center'>
           <Link to="/login"><p className='font-bold mx-4' data-testid="login">Login / SignUp</p></Link>
-          <Link to="/cart"><div data-testid="cart"  className={`w-4 h-4 bg-red-500 rounded-full border-4 border-red-500 absolute z-2 my-2 mx-8  flex items-center justify-center ${cartNum > 0 ? 'visible' : 'hidden'}`}><p className='text-xs text-white font-bold'>{cartNum}</p></div><MdOutlineShoppingCart className='mx-4' size={22} ></MdOutlineShoppingCart></Link>
+          <Link to="/cart"><div data-testid="cart" className={`w-4 h-4 bg-red-500 rounded-full border-4 border-red-500 absolute z-2 my-2 mx-8  flex items-center justify-center ${cartNum > 0 ? 'visible' : 'hidden'}`}><p className='text-xs text-white font-bold'>{cartNum}</p></div><MdOutlineShoppingCart className='mx-4' size={22} ></MdOutlineShoppingCart></Link>
           <Link to="/wishlist"><div data-testid="wishlist_link" className={`w-4 h-4 bg-red-500 rounded-full border-4 border-red-500 absolute z-2 my-2 mx-8  flex items-center justify-center ${wlNum > 0 ? 'visible' : 'hidden'}`}><p className='text-xs text-white font-bold'>{wlNum}</p></div><IoMdHeartEmpty className='mx-4' size={22} /></Link>
         </div>
       </div>

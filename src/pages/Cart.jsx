@@ -17,7 +17,7 @@ const Cart = () => {
     const handleRadioChange = (event,
         value
     ) => {
-        console.log("value "+event.target.value)
+        console.log("value " + event.target.value)
         setSelectedValue(event.target.value);
         if (event.target.value == "option2") {
             setFinalTotal(Number(getTotalPrice()) + 10)
@@ -104,11 +104,11 @@ const Cart = () => {
             ...prev,
             [id]: (prev[id] || 0) + 1
         }));
-        const prod=cartItems.find(cart=>cart.id==id)
-        const quant=(cartItems.find(cart=>cart.id==id).quantity+1)
-        const update={...prod,quantity:quant}
-    console.log("plus cart "+JSON.stringify(cartItems.find(cart=>cart.id==id))+" "+(cartItems.find(cart=>cart.id==id).quantity+1)+" "+JSON.stringify(update))
-      dispatch(updateCart(update))
+        const prod = cartItems.find(cart => cart.id == id)
+        const quant = (cartItems.find(cart => cart.id == id).quantity + 1)
+        const update = { ...prod, quantity: quant }
+        console.log("plus cart " + JSON.stringify(cartItems.find(cart => cart.id == id)) + " " + (cartItems.find(cart => cart.id == id).quantity + 1) + " " + JSON.stringify(update))
+        dispatch(updateCart(update))
     };
 
     const minus = (id) => {
@@ -116,17 +116,17 @@ const Cart = () => {
             ...prev,
             [id]: Math.max((prev[id] || 0) - 1, 1)
         }));
-        const prod=cartItems.find(cart=>cart.id==id)
-        const quant=(Math.max(cartItems.find(cart=>cart.id==id).quantity-1,1))
-        if(quant>1){
-        const update={...prod,quantity:quant}
-    console.log("minus cart "+JSON.stringify(cartItems.find(cart=>cart.id==id))+" "+(cartItems.find(cart=>cart.id==id).quantity-1)+" "+JSON.stringify(update))
-      dispatch(updateCart(update))
+        const prod = cartItems.find(cart => cart.id == id)
+        const quant = (Math.max(cartItems.find(cart => cart.id == id).quantity - 1, 1))
+        if (quant > 1) {
+            const update = { ...prod, quantity: quant }
+            console.log("minus cart " + JSON.stringify(cartItems.find(cart => cart.id == id)) + " " + (cartItems.find(cart => cart.id == id).quantity - 1) + " " + JSON.stringify(update))
+            dispatch(updateCart(update))
         }
     };
     const getTotalPrice = () => {
-        console.log(JSON.stringify(cartItems)+" "+quantity)
-        const total= cartItems.reduce((sum, item) => {
+        console.log(JSON.stringify(cartItems) + " " + quantity)
+        const total = cartItems.reduce((sum, item) => {
             return (sum + item.price * (quantity[item.id] || 1))
         }, 0);
         return total.toFixed(2);
@@ -193,20 +193,20 @@ const Cart = () => {
                                                     <button className="ms-3 me-3 text-gray-500 cursor-pointer  hover:font-bold" onClick={() => Plus(item.id)}>+</button>
                                                 </div></div>
                                                 <p className='w-[20%]'>${(item.price * quantity[item.id]).toFixed(2)}</p>
-                                                <IoMdCloseCircle  className="cursor-pointer" onClick={() => removefromCart(item.id)} />
+                                                <IoMdCloseCircle className="cursor-pointer" onClick={() => removefromCart(item.id)} />
                                             </div>
 
                                             <hr className='my-2 border-gray-300' />
 
                                         </div>
-                                        <div className='flex text-gray-500 items-start min-sm:hidden '>
+                                        <div className='flex text-gray-500 items-start min-sm:hidden mt-2'>
                                             <div className='w-[50%] flex items-center'>
-                                                    <img src={item.thumbnail}  className='bg-gray-300' />
-                                                   
-                                                </div>
-                                                <div className='w-[50%] flex flex-col mt-2'>
+                                                <img src={item.thumbnail} className='bg-gray-300' />
+
+                                            </div>
+                                            <div className='w-[50%] flex flex-col mt-2'>
                                                 <p className='mx-2' data-testid="title">{item.title}</p>
-                                               
+
                                                 <p className='mx-2'>${item.price * quantity[item.id]}</p>
                                                 <div className=' mx-2'> <div className="w-3/4 border-[1px] border-gray-300 flex h-[30px] justify-center ">
                                                     <button className="ms-3 me-3 text-gray-500 cursor-pointer hover:font-bold" onClick={() => minus(item.id)}>-</button>
@@ -214,11 +214,11 @@ const Cart = () => {
                                                     <button className="ms-3 me-3 text-gray-500 cursor-pointer hover:font-bold" onClick={() => Plus(item.id)}>+</button>
                                                 </div></div>
                                                 <p className='mx-2'>${item.price * quantity[item.id]}</p>
-                                                </div>
-                                                <div className=' mt-2'>
+                                            </div>
+                                            <div className=' mt-2'>
                                                 <IoMdCloseCircle className="cursor-pointer" onClick={() => removefromCart(item.id)} />
-                                                </div>
-                                       
+                                            </div>
+
 
                                             <hr className='my-2 border-gray-300' />
                                         </div>

@@ -37,7 +37,7 @@ const Wishlist = ({ navbarHeight }) => {
     }, [move, remove]);
     return (
         <>
-            <div className='h-screen' style={{ marginTop: `${navbarHeight}px` }}>
+            <div className='h-screen' style={{ marginTop: `10px` }}>
                 <div className=' flex mx-4 my-8 items-center text-gray-500 font-bold text-2xl'>
                     <p>My Wishlist</p>
                 </div>

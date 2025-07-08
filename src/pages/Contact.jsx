@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Contact = ({navbarHeight}) => {
     return (
         <>
-            <div className='flex flex-col ' style={{paddingTop: `${navbarHeight+10}px`}}>
+            <div className='flex flex-col ' style={{paddingTop: `10px`}}>
                 <div className='mx-4 text-gray-500'>
                     <Link to="/"> Home</Link> / <span className='font-bold'>Contact Us</span>
                 </div>

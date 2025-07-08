@@ -32,7 +32,7 @@ const FAQ = ({navbarHeight}) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6" style={{paddingTop: `${navbarHeight+10}px`}}>
+    <div className="max-w-4xl mx-auto p-6" style={{paddingTop: `10px`}}>
       <h1 className="text-4xl font-bold text-center mb-8">Frequently Asked Questions</h1>
       <div className="space-y-4">
         {faqs.map((faq, index) => (
