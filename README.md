@@ -6,7 +6,6 @@ Features
 ✅ Wishlist Feature: Add products to your wishlist for future reference.
 ✅ Cart Management: Easily add, remove, and update cart items.
 ✅ Search & Filter: Find products efficiently with powerful filtering.
-✅ User Authentication: Secure login and registration system. 
 ✅ React Router: Provides smooth navigation with dynamic routing.
 ✅ Vitest Testing: Ensures the reliability of components and features.
 Tech Stack
